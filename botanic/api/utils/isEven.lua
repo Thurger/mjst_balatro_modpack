@@ -1,0 +1,3 @@
+local nb = ...
+
+return nb == 2 or nb == 4 or nb == 6 or nb == 8 or nb == 10
