@@ -1,3 +1,0 @@
-local nb = ...
-
-return nb == 2 or nb == 3 or nb == 5 or nb == 7
