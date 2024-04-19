@@ -13,3 +13,5 @@ You can also find my API and it's free to use !
 
 ## [Deck+](https://github.com/Thurger/mjst_balatro_modpack/tree/main/decks_plus)
 *Work in Progress*
+
+by 🇫🇷 Mathéo "MSJT" PONS
