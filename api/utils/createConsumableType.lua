@@ -1,8 +1,8 @@
-local MOD_ID, category_name, name, cost, config = ...
+local MOD_ID, SET, TYPE, cost, config = ...
 
 _G[MOD_ID] = {}
-_G[MOD_ID][category_name] = {}
-_G[MOD_ID][name] = {
+_G[MOD_ID][SET] = {}
+_G[MOD_ID][TYPE] = {
     name = "",
     slug = "",
     cost = cost or 3,
@@ -37,7 +37,7 @@ function mt:new(name, slug, config, pos, loc_txt, cost, discovered)
 end
 
 function mt:register()
-    _G[MOD_ID][category_name][self.slug] = self
+    _G[MOD_ID][SET][self.slug] = self
     local minId = table_length(G.P_CENTER_POOLS[MOD_ID]) + 1--TODO
     local id = 0
     local i = 0
@@ -49,7 +49,7 @@ function mt:register()
         discovered = self.discovered,
         consumeable = true,
         name = self.name,
-        set = MOD_ID .. "_botanics",
+        set = SET,
         order = id,
         key = self.slug,
         pos = self.pos,
@@ -93,7 +93,7 @@ function mt:register()
           end
       end
 
-      sendDebugMessage("[" .. MOD_ID .. "]:" .. "The " .. name .. " named " .. self.name .. " with the slug " .. self.slug ..
+      sendDebugMessage("[" .. MOD_ID .. "]:" .. "The " .. TYPE .. " named " .. self.name .. " with the slug " .. self.slug ..
                            " have been registered at the id " .. id .. ".")
   end
 
@@ -102,5 +102,5 @@ function mt:register()
 local nt = {}
 setmetatable(nt, mt)
 
--- Assign the Metatable to dynamic variable so _G[MOD_ID][category_name]:new() and '':register() are possible
-_G[MOD_ID][name] = nt
+-- Assign the Metatable to dynamic variable so _G[MOD_ID][TYPE]:new() and '':register() are possible
+_G[MOD_ID][TYPE] = nt
