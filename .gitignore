@@ -39,3 +39,8 @@ luac.out
 *.x86_64
 *.hex
 
+# Tests Files
+test.lua
+tests/*
+api/assets
+assets

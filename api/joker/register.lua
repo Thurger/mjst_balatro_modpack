@@ -1,4 +1,5 @@
 function Register(joker, sprite)
+    table.insert(SMODS.MJSTAPI.Jokers, {joker = joker, sprite = sprite})
     SMODS.Joker:new(
         joker.name,
         joker.slug,
