@@ -1,6 +1,6 @@
 local MOD_ID = ...
 
-local CARD_NAME = ""
+local CARD_NAME = "YOURCARDNAME"
 
 local localization = {
     name = "",
@@ -27,7 +27,8 @@ local joker = {
     atlas = nil,
     soul_pos = nil,
     mod_name = SMODS._MOD_NAME,
-    badge_colour = SMODS._BADGE_COLOUR
+    badge_colour = SMODS._BADGE_COLOUR,
+    labels = {}
 }
 
 local sprite = {
