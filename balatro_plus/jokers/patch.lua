@@ -1,4 +1,4 @@
-local MOD_ID = "mjst_mod"
+local MOD_ID = ...
 
 local CARD_NAME = "patch"
 
@@ -92,5 +92,5 @@ local function calculate(self, context)
     end
 end
 
-NFS.load(SMODS.findModByID(MOD_ID).path .. "src/utils/" .. "registerJoker.lua")(joker, sprite)
-SMODS.Jokers.j_mjst_mod_patch.calculate = calculate
+NFS.load(SMODS.findModByID(MOD_ID).path .. 'api/jokers/registerJoker.lua')(joker, sprite)
+SMODS.Jokers['j_' .. MOD_ID .. '_' .. CARD_NAME].calculate = calculate

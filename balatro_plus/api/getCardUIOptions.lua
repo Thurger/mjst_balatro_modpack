@@ -15,7 +15,7 @@ return {
     -- {name = "umbrella", config = { 'chips' }},
     -- {name = "winter", config = {}},
     -- {name = "ai", config = {}},
-    -- {name = "patch", config = { 'trigger', 'rounds' }},
+    {name = "patch", config = { 'trigger', 'rounds' }},
     -- {name = "magnifyingglass", config = {}},
     -- {name = "thecow", config = {}},
 }

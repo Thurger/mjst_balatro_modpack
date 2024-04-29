@@ -42,6 +42,7 @@ luac.out
 # Mac OS
 *.DS_Store
 
+# Tests files
 test.lua
 tests
 test_assets

@@ -3,7 +3,7 @@
 --- MOD_ID: mjst_mod_balatro_plus
 --- MOD_AUTHOR: [MJST]
 --- MOD_DESCRIPTION: Balatro+
---- BADGE_COLOUR: AA2E23
+--- BADGE_COLOUR: D4443C
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
