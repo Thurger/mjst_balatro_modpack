@@ -56,7 +56,6 @@ elseif card_type == 'Default' or card_type == 'Enhanced' then
         colour = self.base.colour,
         nominal_chips = self.base.nominal > 0 and self.base.nominal or nil,
         bonus_chips = (self.ability.bonus + (self.ability.perma_bonus or 0)) > 0 and (self.ability.bonus + (self.ability.perma_bonus or 0)) or nil,
-        bonus_mult = (self.ability.bonus + (self.ability.perma_mult_bonus or 0)) > 0 and (self.ability.bonus + (self.ability.perma_mult_bonus or 0)) or nil,
     }
 elseif self.ability.set == 'Joker' then
     for i = 1, #card_ui_options do
