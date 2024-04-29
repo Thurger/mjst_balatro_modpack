@@ -1,6 +1,6 @@
 local MOD_ID = ...
 
-local CHALLENGE_NAME = "experiment"
+local CHALLENGE_NAME = "prime"
 
 local cards = {
     {s='D', r='2'},
@@ -67,9 +67,13 @@ local config = {
         }
     },
     jokers = {
-        {id = 'j_mjst_mod_balatro_plus_autumn', eternal = false, edition = 'negative'},
-        {id = 'j_mjst_mod_balatro_plus_autumn'},
-        {id = 'j_blueprint'},
+        {id = 'j_mjst_mod_balatro_plus_prime', eternal = false, edition = 'negative'},
+        {id = 'j_hiker', eternal = false, edition = 'negative'},
+        {id = 'j_pareidolia', eternal = false, edition = 'negative'},
+        {id = 'j_hack', eternal = false, edition = 'negative'},
+        {id = 'j_sock_and_buskin', eternal = false, edition = 'negative'},
+        {id = 'j_blueprint', eternal = false, edition = 'negative'},
+        {id = 'j_brainstorm', eternal = false, edition = 'negative'},
     },
     consumeables = {
         {id = 'c_hex'}
@@ -91,4 +95,4 @@ local config = {
 }
 
 NFS.load(SMODS.findModByID(MOD_ID).path .. "api/challenges/" .. "registerChallenge.lua")(config)
-G.localization.misc.challenge_names['c_' .. MOD_ID .. '_' .. CHALLENGE_NAME] = "Experiment"
+G.localization.misc.challenge_names['c_' .. MOD_ID .. '_' .. CHALLENGE_NAME] = "Prime Experiment"

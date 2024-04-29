@@ -145,6 +145,7 @@ function SMODS.INIT.mjst_mod_balatro_plus()
 
     ----#### CHALLENGES ####----
     NFS.load(SMODS.findModByID(MOD_ID).path .. "challenges/" .. "experiment.lua")(MOD_ID)
+    NFS.load(SMODS.findModByID(MOD_ID).path .. "challenges/" .. "prime.lua")(MOD_ID)
     NFS.load(SMODS.findModByID(MOD_ID).path .. "challenges/" .. "math.lua")(MOD_ID)
 end
 
