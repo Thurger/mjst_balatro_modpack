@@ -27,7 +27,7 @@ return {
                 text = {
                     "{C:mult}+#1#{} Multi"
                 }
-            },
+            }
         }
     },
     UI = {},

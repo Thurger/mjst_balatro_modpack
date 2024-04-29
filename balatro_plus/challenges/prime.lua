@@ -76,7 +76,16 @@ local config = {
         {id = 'j_brainstorm', eternal = false, edition = 'negative'},
     },
     consumeables = {
-        {id = 'c_hex'}
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'},
+        {id = 'c_empress', edition = 'negative'}
     },
     vouchers = {
     },

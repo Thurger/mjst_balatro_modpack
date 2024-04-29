@@ -10,6 +10,15 @@
 
 local MOD_ID = "mjst_mod_balatro_plus"
 
+local ref_card_set_ability = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    local old_ability = self.ability
+    ref_card_set_ability(self, center, initial, delay_sprites)
+    if old_ability and old_ability.mjst_mod_balatro_plus_perma_mult then
+        self.ability.mjst_mod_balatro_plus_perma_mult = old_ability.mjst_mod_balatro_plus_perma_mult
+    end
+end
+
 local ref_generate_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
     if (_c.set == 'Default' or _c.set == 'Enhanced') and specific_vars and specific_vars.mjst_mod_balatro_plus_perma_mult then
