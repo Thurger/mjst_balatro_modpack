@@ -39,6 +39,9 @@ luac.out
 *.x86_64
 *.hex
 
+# Mac OS
+*.DS_Store
+
 test.lua
 tests
-assets
+test_assets
