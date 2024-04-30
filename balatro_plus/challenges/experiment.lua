@@ -3,7 +3,7 @@ local MOD_ID = ...
 local CHALLENGE_NAME = "experiment"
 
 local cards = {
-    {s='D', r='2'},
+    {s='D', r='2', m='m_mjst_mod_formula_one_raced'},
     {s='D', r='3'},
     {s='D', r='4'},
     {s='D', r='5'},

@@ -15,7 +15,8 @@ local joker = {
     slug = MOD_ID .. "_" .. CARD_NAME,
     config = {
         extra = {
-            Xmult = 2
+            Xmult = #G.P_CENTER_POOLS["Enhanced"]
+            -- Xmult = 2
         }
     },
     spritePos = {

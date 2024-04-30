@@ -46,3 +46,4 @@ luac.out
 test.lua
 tests
 test_assets
+*.*~
