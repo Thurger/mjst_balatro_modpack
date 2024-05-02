@@ -1,12 +1,11 @@
 local MOD_ID = ...
 
-local CARD_NAME = "autumn"
+local CARD_NAME = "mis_scaled"
 
 local localization = {
-    name = "Autumn",
+    name = "mISsCALED",
     text = {
-        "{X:mult,C:white}X#1#{} if all other",
-        "jokers are {C:blue}Common{}"
+        ""
     }
 }
 
@@ -15,7 +14,8 @@ local joker = {
     slug = MOD_ID .. "_" .. CARD_NAME,
     config = {
         extra = {
-            Xmult = 2
+            max = 2.5,
+            min = 1
         }
     },
     spritePos = {
@@ -46,21 +46,14 @@ local sprite = {
 }
 
 local function calculate(self, context)
-    if context.cardarea == G.jokers then
-        if self.ability.set == "Joker" and self.ability.name == (MOD_ID .. "_ability_" .. CARD_NAME) and not context.blueprint and not context.before and not context.after then
-            local trigger = true
-            for _, v in ipairs(G.jokers.cards) do
-                if v.ability.set == 'Joker' and v.config.center.rarity ~= 1 then
-                    trigger = false
-                end
-            end
-            if trigger then
-                return {
-                    message = localize{type='variable',key='a_xmult',vars={self.ability.extra.Xmult}},
-                    Xmult_mod = self.ability.extra.Xmult,
-                    card = self
-                }
-            end
+    if self.ability.set == 'Joker' and not self.debuff then
+        if context.cardarea == G.jokers and not context.blueprint and not context.before and not context.after then
+            local temp_xMult = pseudorandom('pis_scaled', self.ability.extra.min * 10, self.ability.extra.max * 10) / 10
+            return {
+                message = localize{type='variable',key='a_xmult',vars={temp_xMult}},
+                Xmult_mod = temp_xMult,
+                card = self
+            }
         end
     end
 end

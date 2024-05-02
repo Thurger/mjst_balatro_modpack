@@ -16,6 +16,7 @@ return {
     -- {name = "winter", config = {}},
     -- {name = "ai", config = {}},
     {name = "patch", config = { 'trigger', 'rounds' }},
+    {name = "mis_scaled", config = {}},
     -- {name = "magnifyingglass", config = {}},
     -- {name = "thecow", config = {}},
 }

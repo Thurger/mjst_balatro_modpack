@@ -68,7 +68,7 @@ local config = {
     },
     jokers = {
         {id = 'j_mjst_mod_balatro_plus_patch', eternal = false, edition = 'negative'},
-        {id = 'j_mjst_mod_balatro_plus_patch'}
+        {id = 'j_mjst_mod_balatro_plus_mis_scaled'}
     },
     consumeables = {
         {id = 'c_hex'}

@@ -59,10 +59,84 @@ elseif card_type == 'Default' or card_type == 'Enhanced' then
         bonus_mult = (self.ability.bonus + (self.ability.perma_mult_bonus or 0)) > 0 and (self.ability.bonus + (self.ability.perma_mult_bonus or 0)) or nil,
     }
 elseif self.ability.set == 'Joker' then
-    for i = 1, #card_ui_options do
-        if self.ability.name == (MOD_ID .. '_ability_' .. card_ui_options[i].name) then
-            for j = 1, #card_ui_options[i].config do
-                table.insert(loc_vars, self.ability.extra[card_ui_options[i].config[j]])
+    if (self.ability.name == (MOD_ID .. '_ability_' .. 'mis_scaled')) then
+        local r_mults = {}
+        for i = self.ability.extra.min * 10, self.ability.extra.max * 10 do
+            r_mults[#r_mults+1] = tostring(i / 10)
+        end
+        local loc_mult = ' '..(localize('k_mult'))..' '
+        main_start = {
+            {
+                n = G.UIT.T,
+                config = {
+                    text = '  X',
+                    colour = G.C.MULT,
+                    scale = 0.32
+                }
+            },
+            {
+                n = G.UIT.O,
+                config = {
+                    object = DynaText({
+                        string = r_mults,
+                        colours = {G.C.RED},
+                        pop_in_rate = 9999999,
+                        silent = true,
+                        random_element = true,
+                        pop_delay = 0.5,
+                        scale = 0.32,
+                        min_cycle_time = 0
+                    })
+                }
+            },
+            {
+                n = G.UIT.O,
+                config = {
+                    object = DynaText({
+                        string = {
+                            {
+                                string = 'rand()',
+                                colour = G.C.JOKER_GREY
+                            },
+                            {
+                                string = "#@"
+                                    .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.id or 11)
+                                    .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.suit:sub(1,1) or 'D'),
+                                colour = G.C.RED
+                            },
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult,
+                            loc_mult
+                        },
+                        colours = {
+                            G.C.UI.TEXT_DARK
+                        },
+                        pop_in_rate = 9999999,
+                        silent = true,
+                        random_element = true,
+                        pop_delay = 0.2011,
+                        scale = 0.32,
+                        min_cycle_time = 0
+                    })
+                }
+            }
+        }
+    else
+        for i = 1, #card_ui_options do
+            if self.ability.name == (MOD_ID .. '_ability_' .. card_ui_options[i].name) then
+                for j = 1, #card_ui_options[i].config do
+                    table.insert(loc_vars, self.ability.extra[card_ui_options[i].config[j]])
+                end
             end
         end
     end
