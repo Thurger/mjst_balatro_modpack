@@ -23,9 +23,16 @@ return {
         Back = {
         },
         Other = {
-            mjst_mod_balatro_plus_card_extra_perma_mult = {
+            mjst_mod_balatro_plus_perma_mult = {
                 text = {
                     "{C:mult}+#1#{} Multi"
+                }
+            },
+            s_mjst_mod_balatro_plus_ranked_2 = {
+                name = 'Sceau n°2',
+                text = {
+                    "Cette carte est aussi",
+                    "considéré comme un {C:attention}2"
                 }
             }
         }

@@ -23,14 +23,21 @@
         Back = {
         },
         Other = {
-            mjst_mod_balatro_plus_card_extra_perma_mult = {
+            mjst_mod_balatro_plus_perma_mult = {
                 text = {
                     "{C:mult}+#1#{} extra mult"
+                }
+            },
+            s_mjst_mod_balatro_plus_ranked_2 = {
+                name = 'Ranked Seal #2',
+                text = {
+                    "This card is also",
+                    "considered a {C:attention}2"
                 }
             }
         }
     },
-    UI = {},
+    -- UI = {},
     misc = {
         suits_singular = {
         },

@@ -15,7 +15,7 @@ local cards = {
     {s='D', r='J'},
     {s='D', r='Q'},
     {s='D', r='K'},
-    {s='D', r='A', g='Blue'},
+    {s='D', r='A', g=('s_' .. MOD_ID .. '_' .. 'ranked_2')},
     {s='C', r='2'},
     {s='C', r='3'},
     {s='C', r='4'},

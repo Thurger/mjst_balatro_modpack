@@ -73,6 +73,39 @@ function Card:get_chip_mult()
     return get_chip_mult_ref(self)
 end
 
+local calculate_seal_ref = Card.calculate_seal
+function Card:calculate_seal(context)
+    local result = calculate_seal_ref(self, context)
+
+    if context.discard then
+        if self.seal == 's_' .. MOD_ID .. '_' .. 'ranked_2' then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.0,
+                func = (function()
+                    if not G.GAME.round_resets.temp_handsize then
+                        G.GAME.round_resets.temp_handsize = 0
+                    end
+
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.hand.config.real_card_limit = (G.hand.config.real_card_limit or G.hand.config.card_limit) +
+                                1
+                            G.hand.config.card_limit = math.max(0, G.hand.config.real_card_limit)
+                            check_for_unlock({ type = 'min_hand_size' })
+                            return true
+                        end
+                    }))
+                    G.GAME.round_resets.temp_handsize = G.GAME.round_resets.temp_handsize + 1
+                    return true
+                end)
+            }))
+        end
+    end
+
+    return result
+end
+
 local ref_generate_UIBox_ability_table = Card.generate_UIBox_ability_table
 function Card:generate_UIBox_ability_table()
     local card_ui_options = NFS.load(SMODS.findModByID(MOD_ID).path .. "api/" .. "getCardUIOptions.lua")()
@@ -144,18 +177,32 @@ function Card:generate_UIBox_ability_table()
     return ref_generate_UIBox_ability_table(self)
 end
 
+local get_badge_colour_ref = get_badge_colour
+function get_badge_colour(key)
+    local result = get_badge_colour_ref(key)
+
+    if key == 's_' .. MOD_ID .. "_" .. 'ranked_2' then
+        return "CD2423"
+    end
+
+    return result
+end
+
 function SMODS.INIT.mjst_mod_balatro_plus()
-
     init_localization()
+    NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
 
-    G.localization.descriptions.Other.mjst_mod_balatro_plus_perma_mult = {text = { "{C:mult}+#1#{} extra Mult" }}
+    -- G.localization.descriptions.Other.mjst_mod_balatro_plus_perma_mult = {text = { "{C:mult}+#1#{} extra Mult" }}
 
     NFS.load(SMODS.findModByID(MOD_ID).path .. 'jokers.lua')(MOD_ID)
 
+    NFS.load(SMODS.findModByID(MOD_ID).path .. 'seals/ranked_2.lua')(MOD_ID)
     ----#### CHALLENGES ####----
     NFS.load(SMODS.findModByID(MOD_ID).path .. "challenges/" .. "experiment.lua")(MOD_ID)
     NFS.load(SMODS.findModByID(MOD_ID).path .. "challenges/" .. "prime.lua")(MOD_ID)
     NFS.load(SMODS.findModByID(MOD_ID).path .. "challenges/" .. "math.lua")(MOD_ID)
+
+    -- SMODS.Seal:new(test, test, test, test, test, test, test, test)
 end
 
 ----------------------------------------------
