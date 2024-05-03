@@ -21,6 +21,8 @@ end
 
 local ref_generate_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
+    local info_queue = {}
+
     if (_c.set == 'Default' or _c.set == 'Enhanced') and specific_vars and specific_vars.mjst_mod_balatro_plus_perma_mult then
         if not full_UI_table then
             full_UI_table = {
@@ -38,7 +40,6 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
             localize{type = 'other', key = 'mjst_mod_balatro_plus_perma_mult', nodes = desc_nodes, vars = {specific_vars.mjst_mod_balatro_plus_perma_mult}}
         end
 
-        local info_queue = {}
         if not (_c.set == 'Edition') and badges then
             for k, v in ipairs(badges) do
                 if v == 'foil' then info_queue[#info_queue+1] = G.P_CENTERS['e_foil'] end
@@ -54,6 +55,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
                 if v == 'perishable' then info_queue[#info_queue+1] = {key = 'perishable', set = 'Other', vars = {G.GAME.perishable_rounds or 1, specific_vars.perish_tally or G.GAME.perishable_rounds}} end
                 if v == 'rental' then info_queue[#info_queue+1] = {key = 'rental', set = 'Other', vars = {G.GAME.rental_rate or 1}} end
                 if v == 'pinned_left' then info_queue[#info_queue+1] = {key = 'pinned_left', set = 'Other'} end
+                if v == 's_mjst_mod_balatro_plus_ranked_2' then info_queue[#info_queue+1] = {key = 's_mjst_mod_balatro_plus_ranked_2', set = 'Other'} end
             end
         end
         for _, v in ipairs(info_queue) do
@@ -61,6 +63,28 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         end
 
         return result
+    end
+
+    if not (_c.set == 'Edition') and badges then
+        for k, v in ipairs(badges) do
+            if v == 'foil' then info_queue[#info_queue+1] = G.P_CENTERS['e_foil'] end
+            if v == 'holographic' then info_queue[#info_queue+1] = G.P_CENTERS['e_holo'] end
+            if v == 'polychrome' then info_queue[#info_queue+1] = G.P_CENTERS['e_polychrome'] end
+            if v == 'negative' then info_queue[#info_queue+1] = G.P_CENTERS['e_negative'] end
+            if v == 'negative_consumable' then info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}} end
+            if v == 'gold_seal' then info_queue[#info_queue+1] = {key = 'gold_seal', set = 'Other'} end
+            if v == 'blue_seal' then info_queue[#info_queue+1] = {key = 'blue_seal', set = 'Other'} end
+            if v == 'red_seal' then info_queue[#info_queue+1] = {key = 'red_seal', set = 'Other'} end
+            if v == 'purple_seal' then info_queue[#info_queue+1] = {key = 'purple_seal', set = 'Other'} end
+            if v == 'eternal' then info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'} end
+            if v == 'perishable' then info_queue[#info_queue+1] = {key = 'perishable', set = 'Other', vars = {G.GAME.perishable_rounds or 1, specific_vars.perish_tally or G.GAME.perishable_rounds}} end
+            if v == 'rental' then info_queue[#info_queue+1] = {key = 'rental', set = 'Other', vars = {G.GAME.rental_rate or 1}} end
+            if v == 'pinned_left' then info_queue[#info_queue+1] = {key = 'pinned_left', set = 'Other'} end
+            if v == 's_mjst_mod_balatro_plus_ranked_2' then info_queue[#info_queue+1] = {key = 's_mjst_mod_balatro_plus_ranked_2', set = 'Other'} end
+        end
+    end
+    for _, v in ipairs(info_queue) do
+        generate_card_ui(v, full_UI_table)
     end
     return ref_generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
 end
@@ -188,11 +212,18 @@ function get_badge_colour(key)
     return result
 end
 
+local supported_languages = {}
+supported_languages["en-us"] = true
+supported_languages["fr"] = true
+
 function SMODS.INIT.mjst_mod_balatro_plus()
     init_localization()
-    NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
 
-    -- G.localization.descriptions.Other.mjst_mod_balatro_plus_perma_mult = {text = { "{C:mult}+#1#{} extra Mult" }}
+    if supported_languages[G.SETTINGS.language] then
+        NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, G.SETTINGS.language)
+    else
+        NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
+    end
 
     NFS.load(SMODS.findModByID(MOD_ID).path .. 'jokers.lua')(MOD_ID)
 

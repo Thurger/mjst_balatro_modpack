@@ -2,18 +2,9 @@ local MOD_ID = ...
 
 local CARD_NAME = "prime"
 
-local localization = {
-    name = "Prime",
-    text = {
-        "Every played {C:attention}2{}, {C:attention}3{}, {C:attention}5{} or {C:attention}7{}",
-        "permanently gains",
-        "{C:mult}+#1#{} Mult when scored"
-    }
-}
-
 local joker = {
     name = MOD_ID .. "_ability_" .. CARD_NAME,
-    slug = MOD_ID .. "_" .. "prime",
+    slug = MOD_ID .. "_" .. CARD_NAME,
     config = {
         extra = {
             mult = 1
@@ -23,7 +14,7 @@ local joker = {
         x = 0,
         y = 0
     },
-    loc_txt = localization,
+    loc_txt = G.localization.descriptions.Joker["j_" .. MOD_ID .. "_" .. CARD_NAME],
     rarity = 2,
     cost = 8,
     unlocked = true,

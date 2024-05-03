@@ -1,6 +1,14 @@
 ﻿return {
     descriptions = {
         Joker = {
+            j_mjst_mod_balatro_plus_prime = {
+                name = 'Prime',
+                text = {
+                    "Every played {C:attention}2{}, {C:attention}3{}, {C:attention}5{} or {C:attention}7{}",
+                    "permanently gains",
+                    "{C:mult}+#1#{} Mult when scored"
+                }
+            }
         },
         Voucher = {
         },
@@ -37,7 +45,7 @@
             }
         }
     },
-    -- UI = {},
+    UI = {},
     misc = {
         suits_singular = {
         },
@@ -60,6 +68,7 @@
         poker_hand_descriptions = {
         },
         labels = {
+            s_mjst_mod_balatro_plus_ranked_2 = "Ranked Seal #2"
         },
         dictionary = {
         },

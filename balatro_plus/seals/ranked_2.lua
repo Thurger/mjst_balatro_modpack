@@ -2,13 +2,6 @@ local MOD_ID = ...
 
 local SEAL_NAME = "ranked_2"
 
-local localization = {
-    name = "Ranked Seal #2",
-    text = {
-        "This card is also",
-        "considered a 2"
-    }
-}
 
 local seal = {
     name = 's_' .. MOD_ID .. "_" .. SEAL_NAME,
@@ -17,7 +10,8 @@ local seal = {
     label = "Ranked 2",
     full_name = 's_' .. MOD_ID .. "_" .. SEAL_NAME,
     pos = {x = 0, y = 0},
-    loc_txt = localization,
+    -- loc_txt = localization,
+    loc_txt = G.localization.descriptions.Other.s_mjst_mod_balatro_plus_ranked_2,
     atlas = nil,
     discovered = true,
     color = "CD2423"

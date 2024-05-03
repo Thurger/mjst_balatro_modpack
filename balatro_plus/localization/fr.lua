@@ -1,6 +1,15 @@
 return {
     descriptions = {
         Joker = {
+            j_mjst_mod_balatro_plus_prime = {
+                name = 'Premier',
+                text = {
+                    "Chaque {C:attention}2{}, {C:attention}3{}, {C:attention}5{} ou {C:attention}7{} jouée",
+                    "gagne un bonus permanent",
+                    "de {C:mult}+#1#{} Multi",
+                    "quand elle marque"
+                }
+            }
         },
         Voucher = {
         },
@@ -60,6 +69,7 @@ return {
         poker_hand_descriptions = {
         },
         labels = {
+            s_mjst_mod_balatro_plus_ranked_2 = "Sceau n°2"
         },
         dictionary = {
         },
