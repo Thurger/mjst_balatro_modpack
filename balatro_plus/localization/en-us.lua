@@ -8,7 +8,14 @@
                     "permanently gains",
                     "{C:mult}+#1#{} Mult when scored"
                 }
-            }
+            },
+            j_mjst_mod_balatro_plus_autumn = {
+                name = "Autumn",
+                text = {
+                    "{X:mult,C:white}X#1#{}Mult if all other",
+                    "jokers are {C:blue}Common{}"
+                }
+            },
         },
         Voucher = {
         },

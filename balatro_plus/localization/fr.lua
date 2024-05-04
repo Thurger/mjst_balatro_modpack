@@ -9,7 +9,14 @@ return {
                     "de {C:mult}+#1#{} Multi",
                     "quand elle marque"
                 }
-            }
+            },
+            j_mjst_mod_balatro_plus_autumn = {
+                name = "Automne",
+                text = {
+                    "{X:mult,C:white}X#1#{} Multi si tout les autres",
+                    "jokers sont {C:blue}Communs{}"
+                }
+            },
         },
         Voucher = {
         },

@@ -18,31 +18,16 @@ if type(localization) == "table" then
                             G.localization[grps][grp][item] = {}
                         end
                         G.localization[grps][grp][item] = data
-                        -- if G.localization[grps][grp][item].center == nil then
-                        --     G.localization[grps][grp][item].center = {}
-                        -- end
-                        -- if G.localization[grps][grp][item].center.text_parsed == nil then
-                        --     G.localization[grps][grp][item].center.text_parsed = {}
-                        -- end
-                        -- if G.localization[grps][grp][item].center.name_parsed == nil then
-                        --     G.localization[grps][grp][item].center.name_parsed = {}
-                        -- end
-                        -- if G.localization[grps][grp][item].center.unlock_parsed == nil then
-                        --     G.localization[grps][grp][item].center.unlock_parsed = {}
-                        -- end
-                        -- for idx, line in ipairs(center.text) do
-                        --     G.localization[grps][grp][item].center.text_parsed[#G.localization[grps][grp][item].center.text_parsed + 1] = loc_parse_string(line)
-                        -- end
-                        -- for idx, line in ipairs(center.name) do
-                        --     G.localization[grps][grp][item].center.name_parsed[#G.localization[grps][grp][item].center.name_parsed + 1] = loc_parse_string(line)
-                        -- end
-                        -- for idx, line in ipairs(center.unlock) do
-                        --     G.localization[grps][grp][item].center.unlock_parsed[#G.localization[grps][grp][item].center.unlock_parsed + 1] = loc_parse_string(line)
-                        -- end
                     end
                 end
             end
         end
+    end
+end
+
+if localization and localization.descriptions and localization.descriptions.Joker then
+    for k, v in pairs(localization.descriptions.Joker) do
+        G.localization.descriptions['Joker'][k] = v
     end
 end
 
@@ -68,3 +53,24 @@ for g_k, group in pairs(G.localization) do
         end
     end
 end
+
+-- if type(localization) == "table" then
+--     for grps, _ in pairs(localization) do
+--         if grps ~= nil and _ ~= nil then
+--             for grp, __ in pairs(localization[grps]) do
+--                 if grp ~= nil and __ ~= nil then
+--                     for item, data in pairs(localization[grps][grp]) do
+--                         if G.P_CENTERS[item] ~= nil and G.P_CENTERS[item].loc_txt ~= nil then
+--                             G.localization[item].loc_txt = data
+--                         end
+--                         if G.P_CENTER_POOLS[grp] then
+--                             for idx, value in ipairs(G.P_CENTER_POOLS[grp]) do
+--                                 G.P_CENTER_POOLS[grp][idx].loc_txt = localization[grps][grp][value.name]
+--                             end
+--                         end
+--                     end
+--                 end
+--             end
+--         end
+--     end
+-- end

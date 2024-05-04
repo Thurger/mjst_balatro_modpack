@@ -216,13 +216,25 @@ local supported_languages = {}
 supported_languages["en-us"] = true
 supported_languages["fr"] = true
 
+local game_set_language_ref = Game.set_language
+function Game:set_language()
+    local result = game_set_language_ref(self)
+
+    NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
+    if supported_languages[G.SETTINGS.language] then
+        NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, G.SETTINGS.language)
+    end
+    init_localization()
+
+    return result
+end
+
 function SMODS.INIT.mjst_mod_balatro_plus()
     init_localization()
 
+    NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
     if supported_languages[G.SETTINGS.language] then
         NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, G.SETTINGS.language)
-    else
-        NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
     end
 
     NFS.load(SMODS.findModByID(MOD_ID).path .. 'jokers.lua')(MOD_ID)
