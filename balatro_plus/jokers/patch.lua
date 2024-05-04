@@ -2,16 +2,6 @@ local MOD_ID = ...
 
 local CARD_NAME = "patch"
 
-local localization = {
-    name = "Joker Patch",
-    text = {
-        "After {C:attention}#1#{} rounds",
-        "sell this card to",
-        "{C:attention}Create{} a random Joker",
-        "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)"
-    }
-}
-
 local joker = {
     name = MOD_ID .. "_ability_" .. CARD_NAME,
     slug = MOD_ID .. "_" .. CARD_NAME,
@@ -25,7 +15,7 @@ local joker = {
         x = 0,
         y = 0
     },
-    loc_txt = localization,
+    loc_txt = G.localization.descriptions.Joker["j_" .. MOD_ID .. "_" .. CARD_NAME],
     rarity = 2,
     cost = 0,
     unlocked = true,

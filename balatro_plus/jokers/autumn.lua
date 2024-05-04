@@ -22,7 +22,7 @@ local joker = {
         x = 0,
         y = 0
     },
-    loc_txt = localization,
+    loc_txt = G.localization.descriptions.Joker["j_" .. MOD_ID .. "_" .. CARD_NAME],
     rarity = 1,
     cost = 5,
     unlocked = true,

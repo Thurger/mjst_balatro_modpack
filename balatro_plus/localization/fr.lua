@@ -1,20 +1,42 @@
 return {
     descriptions = {
         Joker = {
+            j_mjst_mod_balatro_plus_autumn = {
+                name = "Automne",
+                text = {
+                    "{X:mult,C:white}X#1#{} Multi. si tout les autres",
+                    "jokers sont {C:blue}Communs{}"
+                }
+            },
+            j_mjst_mod_balatro_plus_mis_scaled = {
+                name = "mAUVAISEeCHELLE",
+                text = {
+                    ""
+                }
+            },
+            j_mjst_mod_balatro_plus_patch = {
+                name = "Patron de Joker",
+                text = {
+                    "Après {C:attention}#1#{} manches",
+                    "Vendre cette carte",
+                    "{C:attention}crée{} un Joker aléatoire",
+                    "{C:inactive}(Actuellement {C:attention}#2#{C:inactive}/#1#)"
+                }
+            },
+            j_mjst_mod_balatro_plus_player = {
+                name = "Joker Joueur",
+                text = {
+                    "{C:chips}+#1#{} Jeton par carte piochée",
+                    "{C:inactive}(Actuellement {C:chips}+#2#{C:inactive} Jetons)"
+                }
+            },
             j_mjst_mod_balatro_plus_prime = {
                 name = 'Premier',
                 text = {
                     "Chaque {C:attention}2{}, {C:attention}3{}, {C:attention}5{} ou {C:attention}7{} jouée",
                     "gagne un bonus permanent",
-                    "de {C:mult}+#1#{} Multi",
+                    "de {C:mult}+#1#{} Multi.",
                     "quand elle marque"
-                }
-            },
-            j_mjst_mod_balatro_plus_autumn = {
-                name = "Automne",
-                text = {
-                    "{X:mult,C:white}X#1#{} Multi si tout les autres",
-                    "jokers sont {C:blue}Communs{}"
                 }
             },
         },
