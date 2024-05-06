@@ -1,3 +1,0 @@
-local nb = ...
-
-return nb == 2 or nb == 3 or nb == 5 or nb == 7 or nb == 11 or nb == 13 or nb == 17 or nb == 19 or nb == 23 or nb == 29 or nb == 31 or nb == 37 or nb == 41 or nb == 43 or nb == 47
