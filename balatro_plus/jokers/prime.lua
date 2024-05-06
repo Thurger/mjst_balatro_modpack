@@ -39,7 +39,7 @@ local sprite = {
 
 local function calculate(self, context)
     if context.individual and context.cardarea == G.play then
-        if context.other_card:get_id() == 2 or context.other_card:get_id() == 3 or context.other_card:get_id() == 5 or context.other_card:get_id() == 7 then
+        if context.other_card:compare_id({2, 3, 5, 7}) then
             context.other_card.ability.mjst_mod_balatro_plus_perma_mult = context.other_card.ability.mjst_mod_balatro_plus_perma_mult or 0
             context.other_card.ability.mjst_mod_balatro_plus_perma_mult = context.other_card.ability.mjst_mod_balatro_plus_perma_mult + self.ability.extra.mult
             return {
