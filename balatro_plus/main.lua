@@ -233,6 +233,7 @@ function SMODS.INIT.mjst_mod_balatro_plus()
     init_localization()
     NFS.load(SMODS.findModByID(MOD_ID).path .. 'localizations.lua')(MOD_ID, 'en-us')
 
+    NFS.load(SMODS.findModByID(MOD_ID).path .. 'api/misc_functions.lua')()
     NFS.load(SMODS.findModByID(MOD_ID).path .. 'api/Card.lua')()
 
     if supported_languages[G.SETTINGS.language] then
