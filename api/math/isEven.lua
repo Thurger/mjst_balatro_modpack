@@ -1,0 +1,3 @@
+local nb = ...
+
+return nb % 2 == 0
