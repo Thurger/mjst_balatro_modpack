@@ -30,7 +30,7 @@ local joker = {
 
 local sprite = {
     name = "j_" .. joker.slug,
-    top_lpath = SMODS.findModByID(MOD_ID).path,
+    top_lpath = SMODS.current_mod.path,
     path = "j_" .. joker.slug  .. ".png",
     px = 71,
     py = 95,
@@ -51,5 +51,5 @@ local function calculate(self, context)
     end
 end
 
-NFS.load(SMODS.findModByID(MOD_ID).path .. "api/jokers/registerJoker.lua")(joker, sprite)
+NFS.load(SMODS.current_mod.path .. "api/jokers/registerJoker.lua")(joker, sprite)
 SMODS.Jokers['j_' .. MOD_ID .. '_' .. CARD_NAME].calculate = calculate

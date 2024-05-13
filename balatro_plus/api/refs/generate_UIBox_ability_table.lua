@@ -59,7 +59,7 @@ elseif card_type == 'Default' or card_type == 'Enhanced' then
         bonus_mult = (self.ability.bonus + (self.ability.perma_mult_bonus or 0)) > 0 and (self.ability.bonus + (self.ability.perma_mult_bonus or 0)) or nil,
     }
 elseif self.ability.set == 'Joker' then
-    if (self.ability.name == (MOD_ID .. '_ability_' .. 'mis_scaled')) then
+    if (self.ability.name == ("j_" .. MOD_ID .. '_ability_' .. 'mis_scaled')) then
         local r_mults = {}
         for i = self.ability.extra.min * 10, self.ability.extra.max * 10 do
             r_mults[#r_mults+1] = tostring(i / 10)
@@ -133,7 +133,7 @@ elseif self.ability.set == 'Joker' then
         }
     else
         for i = 1, #card_ui_options do
-            if self.ability.name == (MOD_ID .. '_ability_' .. card_ui_options[i].name) then
+            if self.ability.name == ("j_" .. MOD_ID .. '_ability_' .. card_ui_options[i].name) then
                 for j = 1, #card_ui_options[i].config do
                     table.insert(loc_vars, self.ability.extra[card_ui_options[i].config[j]])
                 end
@@ -173,7 +173,7 @@ if self.sticker then
 end
 
 for i = 1, #card_ui_options do
-    if self.ability.name == (MOD_ID .. '_ability_' .. card_ui_options[i].name) then
+    if self.ability.name == ("j_" .. MOD_ID .. '_ability_' .. card_ui_options[i].name) then
         return {
             _c = self.config.center,
             full_UI_table = nil,

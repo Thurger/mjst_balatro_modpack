@@ -136,6 +136,15 @@ function Card:get_ids()
         end
     end
 
+    local proud_joker = next(find_joker('mjst_mod_balatro_plus_ability_proud_joker'))
+
+
+    if proud_joker and (self.get_id(self) == 11 or self.get_id(self) == 12 or self.get_id(self) == 13 or seal_nb == 11 or seal_nb == 12 or seal_nb == 13) then
+        if self.get_id(self) ~= 11 and seal_nb ~= 11 then table.insert(ids, 11) end
+        if self.get_id(self) ~= 12 and seal_nb ~= 12 then table.insert(ids, 12) end
+        if self.get_id(self) ~= 13 and seal_nb ~= 13 then table.insert(ids, 13) end
+    end
+
     if self.get_id(self) then table.insert(ids, self.get_id(self)) end
     if seal_nb then table.insert(ids, seal_nb) end
 

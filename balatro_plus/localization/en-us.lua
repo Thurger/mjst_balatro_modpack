@@ -71,6 +71,13 @@
                     "This card is also",
                     "considered a {C:attention}2"
                 }
+            },
+            p_mjst_mod_balatro_plus_joker = {
+                name = 'Joker',
+                text = {
+                    "This card is all {C:attention}ranks{}",
+                    "and all {C:attention}suits"
+                }
             }
         }
     },

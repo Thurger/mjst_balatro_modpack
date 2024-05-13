@@ -19,7 +19,7 @@ local seal = {
 
 local sprite = {
     name = seal.name,
-    top_lpath = SMODS.findModByID(MOD_ID).path,
+    top_lpath = SMODS.current_mod.path,
     path = seal.name  .. ".png",
     px = 71,
     py = 95,
@@ -54,7 +54,7 @@ local function calculate(self, context)
     end
 end
 
-NFS.load(SMODS.findModByID(MOD_ID).path .. 'api/seal/register.lua')(MOD_ID, seal, sprite)
+NFS.load(SMODS.current_mod.path .. 'api/seal/register.lua')(MOD_ID, seal, sprite)
 
 -- SMODS.Seal:new(
 --     seal.name,

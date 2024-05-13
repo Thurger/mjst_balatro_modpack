@@ -2,7 +2,7 @@ local joker, sprite = ...
 
 -- if not joker or not sprite or not SMODS then return 84 end
 
-SMODS.Joker:new(
+SMODS.Joker(
     joker.name,
     joker.slug,
     joker.config,

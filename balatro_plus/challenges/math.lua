@@ -72,5 +72,5 @@ local config = {
     }
 }
 
-NFS.load(SMODS.findModByID(MOD_ID).path .. "api/challenges/" .. "registerChallenge.lua")(config)
+NFS.load(SMODS.current_mod.path .. "api/challenges/" .. "registerChallenge.lua")(config)
 G.localization.misc.challenge_names['c_' .. MOD_ID .. '_' .. CHALLENGE_NAME] = "Math"

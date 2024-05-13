@@ -1,6 +1,6 @@
 local MOD_ID, chosen_language = ...
 
-local localization = NFS.load(SMODS.findModByID(MOD_ID).path .. 'localization/' .. chosen_language .. '.lua')()
+local localization = NFS.load(SMODS.current_mod.path .. 'localization/' .. chosen_language .. '.lua')()
 
 if type(localization) == "table" then
     for grps, _ in pairs(localization) do

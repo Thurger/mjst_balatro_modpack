@@ -11,7 +11,7 @@ return {
     -- {name = "summer", config = { 'mult', 'punish', 'x_mult' }},
     {name = "prime", config = {'mult'}},
     {name = "player", config = {'chips', 'x_chips'}},
-    -- {name = "proudjoker", config = {}},
+    {name = "proud_joker", config = {}},
     -- {name = "texts", config = { 'chips' }},
     -- {name = "umbrella", config = { 'chips' }},
     -- {name = "winter", config = {}},
