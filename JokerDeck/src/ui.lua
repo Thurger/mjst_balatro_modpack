@@ -102,7 +102,10 @@ function Card:generate_UIBox_ability_table()
             colour = self.base.colour,
             nominal_chips = self.base.nominal > 0 and self.base.nominal or nil,
             bonus_chips = (self.ability.bonus + (self.ability.perma_bonus or 0)) > 0 and (self.ability.bonus + (self.ability.perma_bonus or 0)) or nil,
-            mult = self.ability.mult > 0 and self.ability.mult or nil
+            mult = self.ability.mult > 0 and self.ability.mult or nil,
+            all_ranks = self.ability.all_ranks or nil,
+            all_suits = self.ability.all_suits or nil,
+            no_debuff = self.ability.no_debuff or nil
         }
         return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end)
     end

@@ -8,6 +8,16 @@
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
+local supported_languages = {}
+supported_languages["en-us"] = true
+supported_languages["fr"] = true
+
+init_localization()
+NFS.load(SMODS.current_mod.path .. 'src/localization.lua')('en-us')
+if supported_languages[G.SETTINGS.language] then
+    NFS.load(SMODS.current_mod.path .. 'src/localization.lua')(G.SETTINGS.language)
+end
+
 NFS.load(SMODS.current_mod.path .. "src/atlases.lua")()
 NFS.load(SMODS.current_mod.path .. "src/ui.lua")()
 NFS.load(SMODS.current_mod.path .. "src/suits/joker_suit.lua")()

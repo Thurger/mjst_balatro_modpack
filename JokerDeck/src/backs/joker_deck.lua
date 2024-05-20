@@ -22,36 +22,6 @@ SMODS.Back {
     }
 }
 
-local function dump(o, max_depth, depth)
-    if not depth then depth = 0 end
-    if not max_depth then max_depth = 3 end
-    if type(o) == 'table' then
-        local s = '{\n'
-        if depth < max_depth then
-            for k, v in pairs(o) do
-                for _ = 0, depth do
-                    s = s .. '\t'
-                end
-                if type(k) ~= 'number' and type(k) ~= "function" then
-                    k = '"'.. tostring(k) ..'"'
-                end
-                if (type(v) == "function") then
-                    s = s .. '['..k..']: ' .. "function" .. ',\n'
-                end
-                -- if (type(v) == "table") then
-                    s = s .. '['..k..']: ' .. dump(v, max_depth, depth + 1) .. ',\n'
-                -- end
-            end
-        end
-        for _ = 0, depth do
-            s = s .. '\t'
-        end
-        return s .. '}'
-    else
-        return tostring(o)
-    end
-end
-
 local card_calculate_joker_ref = Card.calculate_joker
 function Card:calculate_joker(context)
     local result = card_calculate_joker_ref(self, context)
@@ -71,7 +41,10 @@ function Card:calculate_joker(context)
                         G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                         local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
                         card.ability = card.ability or {}
-                        card.ability.mult = card.ability.mult or 4
+                        card.ability.mult = 4
+                        card.ability.all_ranks = true
+                        card.ability.all_suits = true
+                        card.ability.no_debuff = true
                         card:start_materialize({G.C.SECONDARY_SET.Default})
                         G.play:emplace(card)
                         table.insert(G.playing_cards, card)
