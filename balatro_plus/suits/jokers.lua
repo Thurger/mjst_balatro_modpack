@@ -1,0 +1,31 @@
+-- SMODS.Suit{
+--     key = "suit_" .. SMODS.current_mod.id .. "_jokers",
+--     pos = {y = 4},
+--     ui_pos = {x = 0, y = 1},
+--     loc_txt = {
+--     },
+--     lc_atlas = "cards_1",
+--     hc_atlas = "cards_2",
+--     lc_ui_atlas = "ui_1",
+--     hc_ui_atlas = "ui_2",
+--     card_key = 'MJST_J',
+--     -- populate = function(self)
+--     --     for _, other in pairs(SMODS.Ranks) do
+--     --         if not other.disabled then
+--     --             self:update_p_card(other)
+--     --         end
+--     --     end
+--     --     self.disabled = nil
+--     -- end,
+-- }
+
+
+-- SMODS.Rank{
+--     key = "rank_" .. SMODS.current_mod.id .. "_" .. "joker",
+--     card_key = 'MJST_RANK_' .. "joker",
+--     pos = {x = 0, y = 0},
+--     nominal = 0,
+--     next = {},
+--     loc_txt = {},
+--     face = true
+-- }

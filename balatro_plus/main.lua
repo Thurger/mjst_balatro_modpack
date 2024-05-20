@@ -242,7 +242,7 @@
 -- end
 
 -- NFS.load(SMODS.current_mod.path .. 'jokers.lua')()
-
+-- NFS.load(SMODS.current_mod.path .. 'suits/jokers.lua')()
 -- -- NFS.load(SMODS.current_mod.path .. 'ranks/joker.lua')()
 
 -- -- NFS.load(SMODS.current_mod.path .. 'seals/ranked_2.lua')(MOD_ID)
