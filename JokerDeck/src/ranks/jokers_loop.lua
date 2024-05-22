@@ -15,7 +15,7 @@ SMODS.current_mod.custom.joker_deck.jokers["Joker"] =                       {pos
 SMODS.current_mod.custom.joker_deck.jokers["Chaos the Clown"] =             {pos = {x = 1, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
     joker_ability = {
         {
-            held = true,
+            scored = true,
             create_tag = {"tag_d_six"}
         }
     }
