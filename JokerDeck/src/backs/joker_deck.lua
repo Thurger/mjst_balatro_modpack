@@ -20,29 +20,29 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Juggler"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"},
-            {key = "Drunkard"}
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"},
+            {key = "Acrobat"}
         }
     }
 }
@@ -72,7 +72,11 @@ local function check_conditions(card, context, ability, ret)
         return false
     end
 
-    if ability.conditions.hand_size and context and context.scoring_hand and ability.conditions.hand_size ~= #context.full_hand then
+    if ability.conditions.hand_size and type(ability.conditions.hand_size) == "number" and context and context.scoring_hand and ability.conditions.hand_size ~= #context.full_hand then
+        return false
+    end
+
+    if ability.conditions.remaining_hand and type(ability.conditions.remaining_hand) == "number" and G.GAME.current_round.hands_left ~= ability.conditions.remaining_hand then
         return false
     end
 
