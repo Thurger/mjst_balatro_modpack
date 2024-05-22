@@ -20,29 +20,29 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"}
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"},
+            {key = "Merry Andy"}
         }
     }
 }
@@ -72,6 +72,10 @@ local function check_conditions(card, context, ability, ret)
         return false
     end
 
+    if ability.conditions.hand_size and context and context.scoring_hand and ability.conditions.hand_size ~= #context.full_hand then
+        return false
+    end
+
     return true
 end
 
@@ -89,6 +93,16 @@ local function play_ability(card, context, ability, ret)
                 end)
             }))
         end
+    end
+
+    if ability.add_discard and type(ability.add_discard) == "number" then
+        ease_discard(ability.add_discard)
+    end
+
+    if ability.add_hand_size and type(ability.add_hand_size) == "number" then
+        G.hand:change_size(ability.add_hand_size)
+        SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor or 0
+        SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor - ability.add_hand_size
     end
 
     if ability.ret and type(ability.ret == "table") then
@@ -133,6 +147,16 @@ function eval_card(card, context)
                 end
             end
         end
+    end
+
+    -- if context.end_of_round and not context.repetition then
+    --     if SMODS and SMODS.current_mod and SMODS.current_mod.custom and SMODS.current_mod.custom.joker_deck and SMODS.current_mod.custom.joker_deck.save_hand_size_eor and SMODS.current_mod.custom.joker_deck.save_hand_size_eor ~= 0 then
+    --     end
+    -- end
+    
+    if context.end_of_round and SMODS.current_mod.custom.joker_deck.save_hand_size_eor then
+        G.hand:change_size(SMODS.current_mod.custom.joker_deck.save_hand_size_eor)
+        SMODS.current_mod.custom.joker_deck.save_hand_size_eor = 0
     end
 
     return ret
@@ -187,6 +211,13 @@ function Card:calculate_joker(context)
             end
         end
     end
+
+    -- if context.end_of_round and not context.repetition then
+    --     if SMODS and SMODS.current_mod and SMODS.current_mod.custom and SMODS.current_mod.custom.joker_deck and SMODS.current_mod.custom.joker_deck.save_hand_size_eor and SMODS.current_mod.custom.joker_deck.save_hand_size_eor ~= 0 then
+    --         G.hand:change_size(SMODS.current_mod.custom.joker_deck.save_hand_size_eor)
+    --         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = 0
+    --     end
+    -- end
 
     return result
 end

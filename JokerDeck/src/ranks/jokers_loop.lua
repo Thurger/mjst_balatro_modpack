@@ -129,8 +129,73 @@ SMODS.current_mod.custom.joker_deck.jokers["Droll Joker"] =                 {pos
         }
     }
 }}
-SMODS.current_mod.custom.joker_deck.jokers["Half Joker"] =                  {pos = {x = 7, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
-SMODS.current_mod.custom.joker_deck.jokers["Merry Andy"] =                  {pos = {x = 8, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Half Joker"] =                  {pos = {x = 7, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            conditions = {
+                hand_size = 1
+            },
+            ret = {
+                mult = 20
+            }
+        },
+        {
+            scored = true,
+            conditions = {
+                hand_size = 2
+            },
+            ret = {
+                mult = 20
+            }
+        },
+        {
+            scored = true,
+            conditions = {
+                hand_size = 3
+            },
+            ret = {
+                mult = 20
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                hand_size = 1
+            },
+            ret = {
+                h_mult = 20
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                hand_size = 2
+            },
+            ret = {
+                h_mult = 20
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                hand_size = 3
+            },
+            ret = {
+                h_mult = 20
+            }
+        }
+    }
+}}
+SMODS.current_mod.custom.joker_deck.jokers["Merry Andy"] =                  {pos = {x = 8, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            add_discard = 3,
+            add_hand_size = -1
+        }
+    }
+}}
 SMODS.current_mod.custom.joker_deck.jokers["Stone Joker"] =                 {pos = {x = 9, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 
 SMODS.current_mod.custom.joker_deck.jokers["Juggler"] =                     {pos = {x = 0, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
