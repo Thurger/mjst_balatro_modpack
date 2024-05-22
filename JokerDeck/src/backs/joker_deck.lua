@@ -22,22 +22,14 @@ SMODS.Back {
         starting_jokers = {
             {key = "Jolly Joker"},
             {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"},
-            {key = "Jolly Joker"}
+            {key = "Zany Joker"},
+            {key = "Zany Joker"},
+            {key = "Mad Joker"},
+            {key = "Mad Joker"},
+            {key = "Crazy Joker"},
+            {key = "Crazy Joker"},
+            {key = "Droll Joker"},
+            {key = "Droll Joker"}
         }
     }
 }
