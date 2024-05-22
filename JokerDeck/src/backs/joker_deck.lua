@@ -22,14 +22,27 @@ SMODS.Back {
         starting_jokers = {
             {key = "Jolly Joker"},
             {key = "Jolly Joker"},
-            {key = "Zany Joker"},
-            {key = "Zany Joker"},
-            {key = "Mad Joker"},
-            {key = "Mad Joker"},
-            {key = "Crazy Joker"},
-            {key = "Crazy Joker"},
-            {key = "Droll Joker"},
-            {key = "Droll Joker"}
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"},
+            {key = "Jolly Joker"}
         }
     }
 }
@@ -55,14 +68,11 @@ end
 local function check_conditions(card, context, ability, ret)
     if not ability or not ability.conditions then return true end
 
-    -- if context.poker_hands then sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(context.poker_hands)) end
-    -- if ability.conditions.contain_hand then sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(ability.conditions.contain_hand)) end
-    -- if context.poker_hands and ability.conditions.contain_hand then sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(#context.poker_hands[ability.conditions.contain_hand])) end
-    if ability.conditions.contain_hand and context and context.poker_hands and context.poker_hands[ability.conditions.contain_hand] and #context.poker_hands[ability.conditions.contain_hand] > 0 then
-        return true
+    if ability.conditions.contain_hand and context and context.poker_hands and context.poker_hands[ability.conditions.contain_hand] and #context.poker_hands[ability.conditions.contain_hand] == 0 then
+        return false
     end
 
-    return false
+    return true
 end
 
 local function play_ability(card, context, ability, ret)
