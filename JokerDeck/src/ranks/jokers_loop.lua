@@ -196,7 +196,14 @@ SMODS.current_mod.custom.joker_deck.jokers["Merry Andy"] =                  {pos
         }
     }
 }}
-SMODS.current_mod.custom.joker_deck.jokers["Stone Joker"] =                 {pos = {x = 9, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Stone Joker"] =                 {pos = {x = 9, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            stone_joker = 25
+        }
+    }
+}}
 
 SMODS.current_mod.custom.joker_deck.jokers["Juggler"] =                     {pos = {x = 0, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Drunkard"] =                    {pos = {x = 1, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}

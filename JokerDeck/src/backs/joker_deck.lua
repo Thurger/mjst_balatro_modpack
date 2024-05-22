@@ -20,29 +20,29 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"},
-            {key = "Merry Andy"}
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"},
+            {key = "Stone Joker"}
         }
     }
 }
@@ -103,6 +103,16 @@ local function play_ability(card, context, ability, ret)
         G.hand:change_size(ability.add_hand_size)
         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor or 0
         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor - ability.add_hand_size
+    end
+
+    if ability.stone_joker and type(ability.stone_joker) == "number" then
+        ret = ret or {}
+        ret.chips = ret.chips or 0
+        local nb = 0
+        for k, v in pairs(G.playing_cards) do
+            if v.config.center == G.P_CENTERS.m_stone then nb = nb + 1 end
+        end
+        ret.chips = ret.chips + (ability.stone_joker * nb)
     end
 
     if ability.ret and type(ability.ret == "table") then
