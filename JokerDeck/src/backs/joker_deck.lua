@@ -53,26 +53,62 @@ local function is_played(card, full_hand)
     return -1
 end
 
+local function play_ability(card, context, ability, ret)
+    if not ability or type(ability) ~= "table" then return ret end
+
+    if ability.create_tag and type(ability.create_tag) == "table" then
+        for _, tag in ipairs(ability.create_tag) do
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    add_tag(Tag(tag))
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    return true
+                end)
+            }))
+        end
+    end
+
+    if ability.ret and type(ability.ret == "table") then
+        for k, v in pairs(ability.ret) do
+            ret[k] = ret[k] or nil
+            if ret[k] == nil then
+                ret[k] = v
+            elseif type(ret[k]) == "number" and type(v) == "number" then
+                ret[k] = ret[k] + v
+            else
+                ret[k] = v
+            end
+        end
+    end
+
+    return ret
+end
+
 local eval_card_ref = eval_card
 function eval_card(card, context)
     local ret = eval_card_ref(card, context)
 
-    if not context.repetition then
-        if context.full_hand and is_played(card, context.full_hand) ~= -1 then
-            if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
-                if card.ability and card.ability.create_tag then
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            add_tag(Tag(card.ability.create_tag))
-                            play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                            play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                            return true
-                        end)
-                    }))
+    if card.ability and card.ability.joker_ability then
+        for _, ability in ipairs(card.ability.joker_ability) do
+            if not context.repetition then
+                if context.full_hand and is_played(card, context.full_hand) ~= -1 then
+                    if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
+                        if ability.scored then
+                            ret = play_ability(card, context, ability, ret)
+                        end
+                    end
+                    if ability.played then
+                        ret = play_ability(card, context, ability, ret)
+                    end
+                else
+                    if ability.held then
+                        ret = play_ability(card, context, ability, ret)
+                    end
                 end
+            else
             end
         end
-    else
     end
 
     return ret
