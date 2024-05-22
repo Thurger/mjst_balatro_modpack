@@ -18,9 +18,65 @@ SMODS.Back {
     unlocked = true,
     config = {
         jokers_price = {mult = 0.5},
-        buffon_packs_price = {mult = 0.5}
+        buffon_packs_price = {mult = 0.5},
+        starting_jokers = {
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"},
+            {key = "Chaos the Clown"}
+        }
     }
 }
+
+local function is_scoring(card, scoring_hand)
+    for i, v in ipairs(scoring_hand) do
+        if v == card then
+            return i
+        end
+    end
+    return -1
+end
+
+local function is_played(card, full_hand)
+    for i, v in ipairs(full_hand) do
+        if v == card then
+            return i
+        end
+    end
+    return -1
+end
+
+local eval_card_ref = eval_card
+function eval_card(card, context)
+    local ret = eval_card_ref(card, context)
+
+    if not context.repetition then
+        if context.full_hand and is_played(card, context.full_hand) ~= -1 then
+            if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
+                if card.ability and card.ability.create_tag then
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            add_tag(Tag(card.ability.create_tag))
+                            play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                            play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                            return true
+                        end)
+                    }))
+                end
+            end
+        end
+    else
+    end
+
+    return ret
+end
 
 local card_calculate_joker_ref = Card.calculate_joker
 function Card:calculate_joker(context)
@@ -36,24 +92,32 @@ function Card:calculate_joker(context)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.1,
-                    func = function() 
+                    func = function()
                         local front = G.P_CARDS["J_" .. "Joker"]
+                        if SMODS.current_mod.custom.joker_deck.jokers[context.card.config.center.name] then
+                            front = G.P_CARDS["J_" .. context.card.config.center.name]
+                        end
                         G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                         local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
                         card.ability = card.ability or {}
-                        card.ability.mult = 4
-                        card.ability.all_ranks = true
-                        card.ability.all_suits = true
-                        card.ability.no_debuff = true
+                        if SMODS.current_mod.custom.joker_deck.jokers[context.card.config.center.name] and SMODS.current_mod.custom.joker_deck.jokers[context.card.config.center.name].ability then
+                            for k, v in pairs(SMODS.current_mod.custom.joker_deck.jokers[context.card.config.center.name].ability) do
+                                card.ability[k] = v
+                            end
+                        else
+                            card.ability.all_ranks = true
+                            card.ability.all_suits = true
+                            card.ability.no_debuff = true
+                        end
+                        card.edition = context.card.edition
                         card:start_materialize({G.C.SECONDARY_SET.Default})
                         G.play:emplace(card)
                         table.insert(G.playing_cards, card)
                         return true
                     end
                 }))
-                card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil, {message = context.card.config.center.name, colour = G.C.MULT})
                 G.E_MANAGER:add_event(Event({
-                    func = function() 
+                    func = function()
                         G.deck.config.card_limit = G.deck.config.card_limit + 1
                         return true
                     end

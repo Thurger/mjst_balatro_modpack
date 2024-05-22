@@ -17,13 +17,14 @@ SMODS.Suit {
         plural = "Jokers",
         singular = "Joker"
     },
+    disabled = false,
     update_p_card = function(self, other, remove)
-        if other.card_key and other.pos and other.pos.x and other.pos.y and other.card_key == 'Joker' then
+        if other.card_key and other.pos and other.pos.x and other.pos.y and other.shorthand == 'Jkr' then
             G.P_CARDS[self.card_key .. '_' .. other.card_key] = not remove and {
                 name = other.key .. ' of ' .. self.key,
                 value = other.key,
                 suit = self.key,
-                pos = { x = other.pos.x, y = other.suit_map[self.key] or self.pos.y or other.pos.y },
+                pos = { x = other.pos.x, y = other.pos.y },
                 lc_atlas = other.suit_map[self.key] and other.lc_atlas or self.lc_atlas,
                 hc_atlas = other.suit_map[self.key] and other.hc_atlas or self.hc_atlas,
             }
@@ -31,7 +32,7 @@ SMODS.Suit {
     end,
     populate = function(self)
         for _, other in pairs(SMODS.Ranks) do
-            if not other.disabled then
+            if not other.disabled or other.shorthand == 'Jkr' then
                 self:update_p_card(other)
             end
         end
