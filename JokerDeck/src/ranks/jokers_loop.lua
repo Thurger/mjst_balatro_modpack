@@ -556,7 +556,25 @@ SMODS.current_mod.custom.joker_deck.jokers["Yorick"] =                      {pos
 SMODS.current_mod.custom.joker_deck.jokers["Chicot"] =                      {pos = {x = 6, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Perkeo"] =                      {pos = {x = 7, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 
-SMODS.current_mod.custom.joker_deck.jokers["Egg"] =                         {pos = {x = 0, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Egg"] =                         {pos = {x = 0, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability_vars = {--TODO TEST IF ORDER IS ALWAYS RESPECTED
+        sell_value = 2
+    },
+    joker_ability = {
+        [1] = {
+            scored = true,
+            ret = {
+                dollars = "sell_value",
+            }
+        },
+        [2] = {
+            scored = true,
+            ease_var = {
+                sell_value = 3
+            },
+        }
+    }
+}}
 SMODS.current_mod.custom.joker_deck.jokers["Burglar"] =                     {pos = {x = 1, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
     joker_ability = {
         {

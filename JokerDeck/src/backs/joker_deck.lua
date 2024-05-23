@@ -20,29 +20,7 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"},
-            {key = "Turtle Bean"}
+            {key = "Egg"}
         }
     }
 }
@@ -227,19 +205,6 @@ local function play_ability(card, context, ability, ret)
         if ret.dollars == 0 then ret.dollars = nil end
     end
 
-    if ability.ret and type(ability.ret == "table") then
-        for k, v in pairs(ability.ret) do
-            ret[k] = ret[k] or nil
-            if ret[k] == nil then
-                ret[k] = v
-            elseif type(ret[k]) == "number" and type(v) == "number" then
-                ret[k] = ret[k] + v
-            else
-                ret[k] = v
-            end
-        end
-    end
-
     if ability.ease_var and type(ability.ease_var) == "table" then
         for k, v in pairs(ability.ease_var) do
             if card.ability.joker_ability_vars and card.ability.joker_ability_vars[k] and type(card.ability.joker_ability_vars[k]) == "number" and type(v) == "number" then
@@ -250,6 +215,19 @@ local function play_ability(card, context, ability, ret)
 
     if ability.destroy then
         card:start_dissolve(nil, true)
+    end
+
+    if ability.ret and type(ability.ret == "table") then
+        for k, v in pairs(ability.ret) do
+            ret[k] = ret[k] or 0
+            if type(ret[k]) == "number" and type(v) == "number" then
+                ret[k] = ret[k] + v
+            elseif type(ret[k]) == "number" and type(v) == "string" and card.ability.joker_ability_vars and card.ability.joker_ability_vars[v] and type(card.ability.joker_ability_vars[v]) == "number" then
+                ret[k] = ret[k] + card.ability.joker_ability_vars[v]
+            else
+                ret[k] = v
+            end
+        end
     end
 
     return ret
