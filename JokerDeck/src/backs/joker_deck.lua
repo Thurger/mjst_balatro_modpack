@@ -20,29 +20,7 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"},
-            {key = "Cloud 9"}
+            {key = "Turtle Bean"}
         }
     }
 }
@@ -123,10 +101,16 @@ local function play_ability(card, context, ability, ret)
         ease_hands_played(ability.add_hand)
     end
 
-    if ability.add_hand_size and type(ability.add_hand_size) == "number" then
-        G.hand:change_size(ability.add_hand_size)
+    if ability.add_hand_size then
         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor or 0
-        SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor - ability.add_hand_size
+        if type(ability.add_hand_size) == "number" then
+            G.hand:change_size(ability.add_hand_size)
+            SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor - ability.add_hand_size
+        end
+        if type(ability.add_hand_size) == "string" and card.ability.joker_ability_vars and card.ability.joker_ability_vars[ability.add_hand_size] and type(card.ability.joker_ability_vars[ability.add_hand_size]) == "number" then
+            G.hand:change_size(card.ability.joker_ability_vars[ability.add_hand_size])
+            SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor - card.ability.joker_ability_vars[ability.add_hand_size]
+        end
     end
 
     if ability.stone_joker and type(ability.stone_joker) == "number" then
@@ -230,6 +214,14 @@ local function play_ability(card, context, ability, ret)
                 ret[k] = ret[k] + v
             else
                 ret[k] = v
+            end
+        end
+    end
+
+    if ability.ease_var and type(ability.ease_var) == "table" then
+        for k, v in pairs(ability.ease_var) do
+            if card.ability.joker_ability_vars and card.ability.joker_ability_vars[k] and type(card.ability.joker_ability_vars[k]) == "number" and type(v) == "number" then
+                card.ability.joker_ability_vars[k] = card.ability.joker_ability_vars[k] + v
             end
         end
     end
