@@ -20,29 +20,29 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"},
-            {key = "Acrobat"}
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"},
+            {key = "Blue Joker"}
         }
     }
 }
@@ -80,6 +80,18 @@ local function check_conditions(card, context, ability, ret)
         return false
     end
 
+    if ability.conditions.remaining_discard and type(ability.conditions.remaining_discard) == "number" and G.GAME.current_round.discards_left ~= ability.conditions.remaining_discard then
+        return false
+    end
+
+    if ability.conditions.enhanced_card and type(ability.conditions.enhanced_card) == "number" then
+        local nb = 0
+        for k, v in pairs(G.playing_cards) do
+            if v.config.center ~= G.P_CENTERS.c_base then nb = nb + 1 end
+        end
+        if nb < ability.conditions.enhanced_card then return false end
+    end
+
     return true
 end
 
@@ -103,6 +115,14 @@ local function play_ability(card, context, ability, ret)
         ease_discard(ability.add_discard)
     end
 
+    if ability.remove_all_discard then
+        ease_discard(-G.GAME.current_round.discards_left)
+    end
+
+    if ability.add_hand and type(ability.add_hand) == "number" then
+        ease_hands_played(ability.add_hand)
+    end
+
     if ability.add_hand_size and type(ability.add_hand_size) == "number" then
         G.hand:change_size(ability.add_hand_size)
         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = SMODS.current_mod.custom.joker_deck.save_hand_size_eor or 0
@@ -119,6 +139,80 @@ local function play_ability(card, context, ability, ret)
         ret.chips = ret.chips + (ability.stone_joker * nb)
     end
 
+    if ability.banner and type(ability.banner) == "number" then
+        ret = ret or {}
+        ret.chips = ret.chips or 0
+        ret.chips = ret.chips + (ability.banner * G.GAME.current_round.discards_left)
+    end
+
+    if ability.steel_joker and type(ability.steel_joker) == "number" then
+        ret = ret or {}
+        ret.x_mult = ret.x_mult or 1
+        local nb = 0
+        for k, v in pairs(G.playing_cards) do
+            if v.config.center == G.P_CENTERS.m_steel then nb = nb + 1 end
+        end
+        ret.x_mult = ret.x_mult + (ability.steel_joker * nb)
+        if ret.x_mult <= 1 then ret.x_mult = nil end
+    end
+
+    if ability.abstract_joker and type(ability.abstract_joker) == "number" then
+        ret = ret or {}
+        ret.x_mult = ret.x_mult or 1
+        local nb = 0
+        for k, v in pairs(G.playing_cards) do
+            if v.config.card.suit == "suit_mjst_mod_joker_deck_jokers" then nb = nb + 1 end
+        end
+        ret.mult = ret.mult + (ability.abstract_joker * nb)
+    end
+
+    if ability.fortune_teller and type(ability.fortune_teller) == "number" then
+        ret = ret or {}
+        ret.mult = ret.mult or 0
+        if G and G.GAME and G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.tarot then
+            ret.mult = ret.mult + (G.GAME.consumeable_usage_total.tarot * ability.fortune_teller)
+        end
+    end
+
+    if ability.throwback and type(ability.throwback) == "number" then
+        ret = ret or {}
+        ret.x_mult = ret.x_mult or 1
+        ret.x_mult = ret.x_mult + (G.GAME.skips * ability.throwback)
+        if ret.x_mult <= 1 then ret.x_mult = nil end
+    end
+
+    if ability.satellite and type(ability.satellite) == "number" then
+        ret = ret or {}
+        ret.dollars = ret.dollars or 0
+        local planets_used = 0
+        for k, v in pairs(G.GAME.consumeable_usage) do
+            if v.set == 'Planet' then planets_used = planets_used + 1 end
+        end
+        ret.dollars = ret.dollars + (ability.satellite * planets_used)
+        if ret.dollars == 0 then ret.dollars = nil end
+    end
+
+    if ability.bootstraps and type(ability.bootstraps) == "table" and ability.bootstraps.mult and type(ability.bootstraps.mult) == "number" and ability.bootstraps.dollars and type(ability.bootstraps.dollars) == "number" then
+        ret = ret or {}
+        ret.mult = ret.mult or 0
+        ret.mult = ret.mult + (ability.bootstraps.mult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / ability.bootstraps.dollars))
+    end
+
+    if ability.bull and type(ability.bull) == "table" and ability.bull.chips and type(ability.bull.chips) == "number" and ability.bull.dollars and type(ability.bull.dollars) == "number" then
+        ret = ret or {}
+        ret.chips = ret.chips or 0
+        ret.chips = ret.chips + (ability.bull.chips * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / ability.bull.dollars))
+    end
+
+    if ability.blue_joker and type(ability.blue_joker) == "number" then
+        ret = ret or {}
+        ret.chips = ret.chips or 0
+        ret.chips = ret.chips + (ability.blue_joker * #G.deck.cards)
+    end
+
+    if ability.cloud_9 and type(ability.cloud_9) == "table" then
+    end
+
     if ability.ret and type(ability.ret == "table") then
         for k, v in pairs(ability.ret) do
             ret[k] = ret[k] or nil
@@ -129,6 +223,22 @@ local function play_ability(card, context, ability, ret)
             else
                 ret[k] = v
             end
+        end
+    end
+
+    return ret
+end
+
+local function play_other_ability(card, context, ability, ret)
+    if not ability or type(ability) ~= "table" then return ret end
+
+    if ability.retrigger_scoring_face_card and type(ability.retrigger_scoring_face_card) == "number" then
+        if card:is_face() and is_scoring(card, context.scoring_hand) then
+            ret = ret or {}
+            ret.repetitions = ret.repetitions or 0
+            ret.repetitions = ret.repetitions + ability.retrigger_scoring_face_card + 1
+            ret.message = ret.message or localize("k_again_ex")
+            ret.card = card
         end
     end
 
@@ -163,11 +273,16 @@ function eval_card(card, context)
         end
     end
 
-    -- if context.end_of_round and not context.repetition then
-    --     if SMODS and SMODS.current_mod and SMODS.current_mod.custom and SMODS.current_mod.custom.joker_deck and SMODS.current_mod.custom.joker_deck.save_hand_size_eor and SMODS.current_mod.custom.joker_deck.save_hand_size_eor ~= 0 then
-    --     end
-    -- end
-    
+    if context.scoring_hand and not context.repetition then
+        for _, v in ipairs(context.scoring_hand) do
+            if v.ability and v.ability.joker_ability then
+                for __, a in ipairs(v.ability.joker_ability) do
+                    ret = play_other_ability(card, context, a, ret)
+                end
+            end
+        end
+    end
+
     if context.end_of_round and SMODS.current_mod.custom.joker_deck.save_hand_size_eor then
         G.hand:change_size(SMODS.current_mod.custom.joker_deck.save_hand_size_eor)
         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = 0
