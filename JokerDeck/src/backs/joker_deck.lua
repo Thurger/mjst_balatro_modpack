@@ -20,6 +20,28 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
+            {key = "Turtle Bean"},
             {key = "Turtle Bean"}
         }
     }
@@ -224,6 +246,10 @@ local function play_ability(card, context, ability, ret)
                 card.ability.joker_ability_vars[k] = card.ability.joker_ability_vars[k] + v
             end
         end
+    end
+
+    if ability.destroy then
+        card:start_dissolve(nil, true)
     end
 
     return ret
