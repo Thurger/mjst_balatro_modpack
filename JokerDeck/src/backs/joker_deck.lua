@@ -20,29 +20,29 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"},
-            {key = "Blue Joker"}
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"},
+            {key = "Cloud 9"}
         }
     }
 }
@@ -210,7 +210,15 @@ local function play_ability(card, context, ability, ret)
         ret.chips = ret.chips + (ability.blue_joker * #G.deck.cards)
     end
 
-    if ability.cloud_9 and type(ability.cloud_9) == "table" then
+    if ability.cloud_9 and type(ability.cloud_9) == "table" and ability.cloud_9.id and type(ability.cloud_9.id) == "number" and ability.cloud_9.dollars and type(ability.cloud_9.dollars) == "number" then
+        ret = ret or {}
+        ret.dollars = ret.dollars or 0
+        local nb = 0
+        for k, v in pairs(G.playing_cards) do
+            if v:get_id() == ability.cloud_9.id then nb = nb + 1 end
+        end
+        ret.dollars = ret.dollars + (ability.cloud_9.dollars * nb)
+        if ret.dollars == 0 then ret.dollars = nil end
     end
 
     if ability.ret and type(ability.ret == "table") then

@@ -604,7 +604,7 @@ SMODS.current_mod.custom.joker_deck.jokers["Cloud 9"] =                     {pos
     joker_ability = {
         {
             scored = true,
-            cloud_9 = {value = '9', dollars = 1}
+            cloud_9 = {id = 9, dollars = 1}
         }
     }
 }}
