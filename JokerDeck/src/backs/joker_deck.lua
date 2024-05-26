@@ -20,32 +20,32 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"},
-            {key = "Marble Joker"}
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"},
+            {key = "Cartomancer"}
         }
     }
 }
@@ -269,6 +269,32 @@ local function play_ability(card, context, ability, ret)
                         draw_card(G.play,G.deck, 90,'up', nil)
                         return true
                     end
+                }))
+            end
+        end
+    end
+
+    if ability.create_tarot_card and type(ability.create_tarot_card) == "table" then
+        for _, v in ipairs(ability.create_tarot_card) do
+            if type(v) == "table" and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        if v.value and type(v.value) == "string" and v.value == "random" then
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    local new_card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'car')
+                                    new_card:add_to_deck()
+                                    G.consumeables:emplace(new_card)
+                                    G.GAME.consumeable_buffer = 0
+                                    return true
+                                end
+                            }))
+                            return true
+                        else
+                        end
+                        return true
+                    end)
                 }))
             end
         end
