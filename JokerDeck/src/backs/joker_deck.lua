@@ -20,7 +20,32 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Egg"}
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"},
+            {key = "Marble Joker"}
         }
     }
 }
@@ -215,6 +240,38 @@ local function play_ability(card, context, ability, ret)
 
     if ability.destroy then
         card:start_dissolve(nil, true)
+    end
+
+    if ability.create_card and type(ability.create_card) == "table" then
+        for _, v in ipairs(ability.create_card) do
+            if type(v) == "table" then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local front = {}
+                        local new_card = {}
+                        if type(v.value) == "string" and v.value == "random" then
+                        front = pseudorandom_element(G.P_CARDS, pseudoseed('random_card'))
+                        elseif type(v.value) == "string" and G.P_CARDS[v.value] then
+                            front = G.P_CARDS[v.value]
+                        else
+                            front = pseudorandom_element(G.P_CARDS, pseudoseed('default_random'))
+                        end
+                        if v.enhancement and type(v.enhancement) == "string" and G.P_CENTERS[v.enhancement] then
+                            new_card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS[v.enhancement], {playing_card = G.playing_card})
+                        else
+                            new_card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
+                        end
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        new_card:start_materialize({G.C.SECONDARY_SET.Enhanced})
+                        G.play:emplace(new_card)
+                        table.insert(G.playing_cards, new_card)
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        draw_card(G.play,G.deck, 90,'up', nil)
+                        return true
+                    end
+                }))
+            end
+        end
     end
 
     if ability.ret and type(ability.ret == "table") then

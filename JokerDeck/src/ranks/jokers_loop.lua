@@ -279,7 +279,19 @@ SMODS.current_mod.custom.joker_deck.jokers["Mystic Summit"] =               {pos
         }
     }
 }}
-SMODS.current_mod.custom.joker_deck.jokers["Marble Joker"] =                {pos = {x = 3, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Marble Joker"] =                {pos = {x = 3, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            create_card = {
+                {
+                    value = "random",
+                    enhancement = "m_stone"
+                }
+            },
+        }
+    }
+}}
 SMODS.current_mod.custom.joker_deck.jokers["Loyalty Card"] =                {pos = {x = 4, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Hack"] =                        {pos = {x = 5, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Misprint"] =                    {pos = {x = 6, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
