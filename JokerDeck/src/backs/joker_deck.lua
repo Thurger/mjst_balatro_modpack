@@ -242,8 +242,8 @@ local function play_ability(card, context, ability, ret)
         card:start_dissolve(nil, true)
     end
 
-    if ability.create_card and type(ability.create_card) == "table" then
-        for _, v in ipairs(ability.create_card) do
+    if ability.create_p_card and type(ability.create_p_card) == "table" then
+        for _, v in ipairs(ability.create_p_card) do
             if type(v) == "table" then
                 G.E_MANAGER:add_event(Event({
                     func = function()

@@ -283,7 +283,7 @@ SMODS.current_mod.custom.joker_deck.jokers["Marble Joker"] =                {pos
     joker_ability = {
         {
             scored = true,
-            create_card = {
+            create_p_card = {
                 {
                     value = "random",
                     enhancement = "m_stone"
