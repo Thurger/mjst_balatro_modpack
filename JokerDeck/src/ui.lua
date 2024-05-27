@@ -106,10 +106,6 @@ function Card:generate_UIBox_ability_table()
             mult = self.ability.mult > 0 and self.ability.mult or nil,
             ability = self.ability or nil
         }
-        if self.ability.rarity ~= nil then
-            -- badges[#badges+1] = create_badge(({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[self.ability.rarity + 1], G.C.RARITY[self.ability.rarity + 1], nil, 1.2)
-            -- badges[#badges+1] = create_badge("TEST", G.C.BLUE, nil, 4)
-        end
         return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end)
     end
     return ref_generate_UIBox_ability_table(self)
@@ -128,10 +124,50 @@ function G.UIDEF.card_h_popup(card)
                 local info_boxes = {}
                 local outer_padding = 0.05
                 local card_type_background = darken(G.C.BLACK, 0.1)
+
                 badges[#badges+1] = create_badge(({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[card.ability.rarity + 1], G.C.RARITY[card.ability.rarity + 1], nil, 1.2)
                 if AUT.card_type == "Enhanced" then
                     local card_type_color = get_type_colour(card.config.center or card.config, card)
                     badges[#badges+1] = create_badge(localize{type = 'name_text', key = card.config.center.key, set = 'Enhanced'}, card_type_color, nil, 1)
+                end
+
+                -- info_boxes[#info_boxes + 1] =
+                -- {
+                --     n = G.UIT.R,
+                --     config = {align = "cm"},
+                --     nodes = {
+                --         {
+                --             n = G.UIT.R,
+                --             config = {
+                --                 align = "cm",
+                --                 colour = lighten(G.C.JOKER_GREY, 0.5),
+                --                 r = 0.1,
+                --                 padding = 0.05,
+                --                 emboss = 0.05
+                --             },
+                --             nodes = {
+                --                 info_tip_from_rows(v, v.name),
+                --             }
+                --         }
+                --     }
+                -- }
+
+                if AUT.badges then
+                    for k, v in ipairs(AUT.badges) do
+                        if v == 'negative_consumable' then v = 'negative' end
+                        badges[#badges + 1] = create_badge(localize(v, "labels"), get_badge_colour(v))
+                    end
+                end
+
+                if AUT.info then
+                    for k, v in ipairs(AUT.info) do
+                        info_boxes[#info_boxes+1] =
+                            {n=G.UIT.R, config={align = "cm"}, nodes={
+                                {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.JOKER_GREY, 0.5), r = 0.1, padding = 0.05, emboss = 0.05}, nodes={
+                                    info_tip_from_rows(v, v.name),
+                            }}
+                        }}
+                    end
                 end
 
                 local disp_type, is_playing_card = (AUT.card_type ~= 'Locked' and AUT.card_type ~= 'Undiscovered' and AUT.card_type ~= 'Default') or debuffed, AUT.card_type == 'Enhanced' or AUT.card_type == 'Default'

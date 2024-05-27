@@ -20,32 +20,32 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"},
-            {key = "Riff-Raff"}
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"},
+            {key = "Seance"}
         }
     }
 }
@@ -182,7 +182,7 @@ local function play_ability(card, context, ability, ret)
 
     if ability.abstract_joker and type(ability.abstract_joker) == "number" then
         ret = ret or {}
-        ret.x_mult = ret.x_mult or 1
+        ret.mult = ret.mult or 0
         local nb = 0
         for k, v in pairs(G.playing_cards) do
             if v.config.card.suit == "suit_mjst_mod_joker_deck_jokers" then nb = nb + 1 end
