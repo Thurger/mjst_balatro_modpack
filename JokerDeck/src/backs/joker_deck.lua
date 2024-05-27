@@ -20,35 +20,50 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"},
-            {key = "Spare Trousers"}
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"},
+            {key = "Riff-Raff"}
         }
     }
 }
+
+local function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else
+        copy = orig
+    end
+    return copy
+end
 
 local function is_scoring(card, scoring_hand)
     for i, v in ipairs(scoring_hand) do
@@ -300,6 +315,49 @@ local function play_ability(card, context, ability, ret)
         end
     end
 
+    if ability.riff_raff and type(ability.riff_raff) == "table" then
+        local amount = ability.riff_raff.amount or 2
+        local list = {}
+        for k, v in pairs(SMODS.current_mod.custom.joker_deck.jokers) do
+            if v.ability.rarity ~= nil and ability.riff_raff.rarity ~= nil and ability.riff_raff.rarity == v.ability.rarity then
+                table.insert(list, k)
+            end
+        end
+        for i = 1, amount do
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local front = {}
+                    local new_card = {}
+                    if #list > 0 then
+                        local rd = pseudorandom_element(list, pseudoseed('random_card'))
+                        if not rd then return true end
+                        front = G.P_CARDS["J_" .. rd]
+                        if not front then return true end
+                        new_card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
+                        if SMODS.current_mod.custom.joker_deck.jokers[rd] and SMODS.current_mod.custom.joker_deck.jokers[rd].ability then
+                            for k, a in pairs(SMODS.current_mod.custom.joker_deck.jokers[rd].ability) do
+                                local tmp = deepcopy(a)
+                                new_card.ability[k] = tmp
+                            end
+                        else
+                            new_card.ability = new_card.ability or {}
+                            new_card.ability.all_ranks = true
+                            new_card.ability.all_suits = true
+                            new_card.ability.no_debuff = true
+                        end
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        new_card:start_materialize({G.C.SECONDARY_SET.Default})
+                        G.play:emplace(new_card)
+                        table.insert(G.playing_cards, new_card)
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        draw_card(G.play,G.deck, 90,'up', nil)
+                    end
+                    return true
+                end
+            }))
+        end
+    end
+
     if ability.ret and type(ability.ret == "table") then
         for k, v in pairs(ability.ret) do
             ret[k] = ret[k] or 0
@@ -334,53 +392,53 @@ end
 
 local evaluate_play_ref = G.FUNCS.evaluate_play
 function G.FUNCS:evaluate_play(e)
-    -- local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
 
-    -- G.GAME.hands[text].played = G.GAME.hands[text].played + 1
-    -- G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1
-    -- G.GAME.last_hand_played = text
-    -- set_hand_usage(text)
-    -- G.GAME.hands[text].visible = true
+    G.GAME.hands[text].played = G.GAME.hands[text].played + 1
+    G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1
+    G.GAME.last_hand_played = text
+    set_hand_usage(text)
+    G.GAME.hands[text].visible = true
 
-    -- --Add all the pure bonus cards to the scoring hand
-    -- local pures = {}
-    -- for i=1, #G.play.cards do
-    --     if next(find_joker('Splash')) then
-    --         scoring_hand[i] = G.play.cards[i]
-    --     else
-    --         if G.play.cards[i].ability.effect == 'Stone Card' then
-    --             local inside = false
-    --             for j=1, #scoring_hand do
-    --                 if scoring_hand[j] == G.play.cards[i] then
-    --                     inside = true
-    --                 end
-    --             end
-    --             if not inside then table.insert(pures, G.play.cards[i]) end
-    --         end
-    --     end
-    -- end
-    -- for i=1, #pures do
-    --     table.insert(scoring_hand, pures[i])
-    -- end
-    -- local percent = 0.3
-    -- local percent_delta = 0.08
+    --Add all the pure bonus cards to the scoring hand
+    local pures = {}
+    for i=1, #G.play.cards do
+        if next(find_joker('Splash')) then
+            scoring_hand[i] = G.play.cards[i]
+        else
+            if G.play.cards[i].ability.effect == 'Stone Card' then
+                local inside = false
+                for j=1, #scoring_hand do
+                    if scoring_hand[j] == G.play.cards[i] then
+                        inside = true
+                    end
+                end
+                if not inside then table.insert(pures, G.play.cards[i]) end
+            end
+        end
+    end
+    for i=1, #pures do
+        table.insert(scoring_hand, pures[i])
+    end
+    local percent = 0.3
+    local percent_delta = 0.08
 
-    -- if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) and G.GAME.selected_back and G.GAME.selected_back.name == "Joker Deck" then
-    --     delay(0.4)
+    if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) and G.GAME.selected_back and G.GAME.selected_back.name == "Joker Deck" then
+        delay(0.4)
 
-    --     for i = 1, #scoring_hand do
-    --         if scoring_hand[i] and scoring_hand[i].ability and scoring_hand[i].ability.joker_ability and scoring_hand[i].ability.joker_ability.before then
-    --             local effects = eval_card(scoring_hand[i], {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before = true})
-    --             if effects.level_up then
-    --                 -- card_eval_status_text(scoring_hand[i], 'jokers', nil, percent, nil, effects.jokers)
-    --                 percent = percent + percent_delta
-    --                 if effects.level_up then
-    --                     level_up_hand(scoring_hand[i], text, nil, effects.level_up)
-    --                 end
-    --             end
-    --         end
-    --     end
-    -- end
+        for i = 1, #scoring_hand do
+            if scoring_hand[i] and scoring_hand[i].ability and scoring_hand[i].ability.joker_ability and scoring_hand[i].ability.joker_ability.before then
+                local effects = eval_card(scoring_hand[i], {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before = true})
+                if effects.level_up then
+                    -- card_eval_status_text(scoring_hand[i], 'jokers', nil, percent, nil, effects.jokers)
+                    percent = percent + percent_delta
+                    if effects.level_up then
+                        level_up_hand(scoring_hand[i], text, nil, effects.level_up)
+                    end
+                end
+            end
+        end
+    end
 
     evaluate_play_ref(self, e)
 end
@@ -499,13 +557,6 @@ function Card:calculate_joker(context)
             end
         end
     end
-
-    -- if context.end_of_round and not context.repetition then
-    --     if SMODS and SMODS.current_mod and SMODS.current_mod.custom and SMODS.current_mod.custom.joker_deck and SMODS.current_mod.custom.joker_deck.save_hand_size_eor and SMODS.current_mod.custom.joker_deck.save_hand_size_eor ~= 0 then
-    --         G.hand:change_size(SMODS.current_mod.custom.joker_deck.save_hand_size_eor)
-    --         SMODS.current_mod.custom.joker_deck.save_hand_size_eor = 0
-    --     end
-    -- end
 
     return result
 end

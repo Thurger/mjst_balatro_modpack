@@ -91,13 +91,13 @@ function Back:apply_to_run()
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     local card = nil
                     card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
+                    card.ability = card.ability or {}
                     if SMODS.current_mod.custom.joker_deck.jokers[v.key] and SMODS.current_mod.custom.joker_deck.jokers[v.key].ability then
                         for k, a in pairs(SMODS.current_mod.custom.joker_deck.jokers[v.key].ability) do
                             local tmp = deepcopy(a)
                             card.ability[k] = tmp
                         end
                     else
-                        card.ability = card.ability or {}
                         card.ability.all_ranks = true
                         card.ability.all_suits = true
                         card.ability.no_debuff = true
