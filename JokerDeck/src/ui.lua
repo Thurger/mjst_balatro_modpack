@@ -119,27 +119,36 @@ local g_uidef_card_h_popup_ref = G.UIDEF.card_h_popup
 function G.UIDEF.card_h_popup(card)
     local t = g_uidef_card_h_popup_ref(card)
 
-    -- if not card.config.center or -- no center
-    -- (card.config.center.unlocked == false and not card.bypass_lock) or -- locked card
-    -- card.debuff or -- debuffed card
-    -- (not card.config.center.discovered and ((card.area ~= G.jokers and card.area ~= G.consumeables and card.area) or not card.area)) -- undiscovered card
-    -- then return t end
+    if card.ability_UIBox_table then
+        local AUT = card.ability_UIBox_table
+        local debuffed = card.debuff
+        if card.ability and type(card.ability.rarity) == "number" then
+            if AUT.card_type == "Default" or AUT.card_type == "Enhanced" then
+                local badges = {}
+                local info_boxes = {}
+                local outer_padding = 0.05
+                local card_type_background = darken(G.C.BLACK, 0.1)
+                badges[#badges+1] = create_badge(({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[card.ability.rarity + 1], G.C.RARITY[card.ability.rarity + 1], nil, 1.2)
+                if AUT.card_type == "Enhanced" then
+                    local card_type_color = get_type_colour(card.config.center or card.config, card)
+                    badges[#badges+1] = create_badge(localize{type = 'name_text', key = card.config.center.key, set = 'Enhanced'}, card_type_color, nil, 1)
+                end
 
-    -- sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(t.nodes[1].nodes[1].nodes[1].nodes[3]))
-    -- t.nodes[1].nodes[1].nodes[1].nodes[3] = t.nodes[1].nodes[1].nodes[1].nodes[3] or {}
-    -- if card and card.ability and card.ability.rarity then
-        -- t.nodes[1].nodes[1].nodes[1].nodes[3][#t.nodes[1].nodes[1].nodes[1].nodes[3] + 1] = create_badge("TEST", G.C.BLUE, nil, 4)
-    -- end
-    -- local key = card.config.center.key
-    -- local center_obj = G.P_CENTERS[key]
-    -- if center_obj then
-    --     if not G.SETTINGS.no_mod_tracking then
-    --         local mod_name = SMODS.current_mod.name
-    --         local len = string.len(mod_name)
-    --         -- t.nodes[1].nodes[1].nodes[1].nodes[3][#t.nodes[1].nodes[1].nodes[1].nodes[3] + 1] = create_badge(mod_name, center_obj.badge_colour or G.C.UI.BACKGROUND_INACTIVE, nil,
-    --         --     len <= 6 and 0.9 or 0.9 - 0.02 * (len - 6))
-    --     end
-    -- end
-    -- t.nodes[1].nodes[1].nodes[1].nodes[3][#t.nodes[1].nodes[1].nodes[1].nodes[3] + 1] = create_badge("TEST", G.C.BLUE, nil, 4)
+                local disp_type, is_playing_card = (AUT.card_type ~= 'Locked' and AUT.card_type ~= 'Undiscovered' and AUT.card_type ~= 'Default') or debuffed, AUT.card_type == 'Enhanced' or AUT.card_type == 'Default'
+
+                return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
+                    {n=G.UIT.C, config={align = "cm", func = 'show_infotip',object = Moveable(),ref_table = next(info_boxes) and info_boxes or nil}, nodes={
+                        {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
+                            {n=G.UIT.R, config={align = "cm", padding = 0.07, r = 0.1, colour = adjust_alpha(card_type_background, 0.8)}, nodes={
+                                name_from_rows(AUT.name, is_playing_card and G.C.WHITE or nil),
+                                desc_from_rows(AUT.main),
+                                badges[1] and {n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=badges} or nil,
+                            }}
+                        }}
+                    }},
+                }}
+            end
+        end
+    end
     return t
 end

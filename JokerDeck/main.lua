@@ -119,20 +119,29 @@ function Back:apply_to_run()
     end
 end
 
+-- local ref_card_set_ability = Card.set_ability
+-- function Card:set_ability(center, initial, delay_sprites)
+--     if center then
+--         local old_ability = self.ability
+--         ref_card_set_ability(self, center, initial, delay_sprites)
+--         if old_ability and old_ability.mjst_mod_balatro_plus_perma_mult then
+--             self.ability.mjst_mod_balatro_plus_perma_mult = old_ability.mjst_mod_balatro_plus_perma_mult
+--         end
+--     end
+-- end
+
 local card_set_ability_ref = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
-    -- local old_ability = self.ability or nil
-    -- if old_ability then
-    --     sendInfoMessage(dump(old_ability))
-    -- end
-
-    card_set_ability_ref(self, center, initial, delay_sprites)
-
-    -- if old_ability then
-    --     for k, v in pairs(old_ability) do
-    --         self.ability[k] = v
-    --     end
-    -- end
+    if center then
+        local old_ability = self.ability
+        card_set_ability_ref(self, center, initial, delay_sprites)
+        if old_ability and old_ability.all_ranks then self.ability.all_ranks = old_ability.all_ranks end
+        if old_ability and old_ability.all_suits then self.ability.all_suits = old_ability.all_suits end
+        if old_ability and old_ability.no_debuff then self.ability.no_debuff = old_ability.no_debuff end
+        if old_ability and old_ability.rarity then self.ability.rarity = old_ability.rarity end
+        if old_ability and old_ability.joker_ability then self.ability.joker_ability = old_ability.joker_ability end
+        if old_ability and old_ability.joker_ability_vars then self.ability.joker_ability_vars = old_ability.joker_ability_vars end
+    end
 end
 
 SMODS.Suits.Diamonds.populate = function(self)
