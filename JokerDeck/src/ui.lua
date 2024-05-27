@@ -2,6 +2,7 @@ local ref_generate_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
     local info_queue = {}
 
+    -- sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(specific_vars))
     if (_c.set == 'Default' or _c.set == 'Enhanced') and specific_vars and specific_vars.mult and specific_vars.mult > 0 then
         if not full_UI_table then
             full_UI_table = {
@@ -103,116 +104,42 @@ function Card:generate_UIBox_ability_table()
             nominal_chips = self.base.nominal > 0 and self.base.nominal or nil,
             bonus_chips = (self.ability.bonus + (self.ability.perma_bonus or 0)) > 0 and (self.ability.bonus + (self.ability.perma_bonus or 0)) or nil,
             mult = self.ability.mult > 0 and self.ability.mult or nil,
-            all_ranks = self.ability.all_ranks or nil,
-            all_suits = self.ability.all_suits or nil,
-            no_debuff = self.ability.no_debuff or nil
+            ability = self.ability or nil
         }
+        if self.ability.rarity ~= nil then
+            -- badges[#badges+1] = create_badge(({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[self.ability.rarity + 1], G.C.RARITY[self.ability.rarity + 1], nil, 1.2)
+            -- badges[#badges+1] = create_badge("TEST", G.C.BLUE, nil, 4)
+        end
         return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end)
     end
     return ref_generate_UIBox_ability_table(self)
 end
 
-function get_card_ui(card)
+local g_uidef_card_h_popup_ref = G.UIDEF.card_h_popup
+function G.UIDEF.card_h_popup(card)
+    local t = g_uidef_card_h_popup_ref(card)
 
-    local card_type, hide_desc = card.ability.set or "None", nil
-    local loc_vars = {}
-    local main_start, main_end = nil,nil
-    local no_badge = nil
+    -- if not card.config.center or -- no center
+    -- (card.config.center.unlocked == false and not card.bypass_lock) or -- locked card
+    -- card.debuff or -- debuffed card
+    -- (not card.config.center.discovered and ((card.area ~= G.jokers and card.area ~= G.consumeables and card.area) or not card.area)) -- undiscovered card
+    -- then return t end
 
-    -- Set 'Undiscovered' card_type
-    if not card.bypass_lock
-        and card.config.center.unlocked ~= false
-        and (
-            card.ability.set == 'Joker'
-            or card.ability.set == 'Edition'
-            or card.ability.consumeable
-            or card.ability.set == 'Voucher'
-            or card.ability.set == 'Booster'
-        )
-        and not card.config.center.discovered
-        and (
-            (
-                card.area ~= G.jokers
-                and card.area ~= G.consumeables
-                and card.area
-            )
-            or not card.area
-        ) then card_type = 'Undiscovered'
-    end
-
-    -- Set 'Locked' card_type
-    if card.config.center.unlocked == false
-        and not card.bypass_lock
-        then
-        card_type = "Locked"
-        if card.area
-            and card.area == G.shop_demo
-            then loc_vars = {}; no_badge = true
-        end
-    elseif
-        card_type == 'Undiscovered'
-        and not card.bypass_discovery_ui
-        then
-        hide_desc = true
-    elseif card.debuff then
-        loc_vars = {
-            debuffed = true,
-            playing_card = not not card.base.colour,
-            value = card.base.value,
-            suit = card.base.suit,
-            colour = card.base.colour
-        }
-    elseif card_type == 'Default' or card_type == 'Enhanced' then
-        loc_vars = {
-            playing_card = not not card.base.colour,
-            value = card.base.value,
-            suit = card.base.suit,
-            colour = card.base.colour,
-            nominal_chips = card.base.nominal > 0 and card.base.nominal or nil,
-            bonus_chips = (card.ability.bonus + (card.ability.perma_bonus or 0)) > 0 and (card.ability.bonus + (card.ability.perma_bonus or 0)) or nil,
-            mult = card.ability.mult > 0 and card.ability.mult or nil,
-        }
-    end
-
-    local badges = {}
-    if (card_type ~= 'Locked' and card_type ~= 'Undiscovered' and card_type ~= 'Default') or card.debuff then
-        badges.card_type = card_type
-    end
-
-    if card.ability.set == 'Joker' and card.bypass_discovery_ui then
-        badges.force_rarity = true
-    end
-
-    if card.edition then
-        if card.edition.type == 'negative' and card.ability.consumeable then
-            badges[#badges + 1] = 'negative_consumable'
-        else
-            badges[#badges + 1] = (card.edition.type == 'holo' and 'holographic' or card.edition.type)
-        end
-    end
-
-    if card.seal then badges[#badges + 1] = string.lower(card.seal) .. '_seal' end
-    if card.ability.eternal then badges[#badges + 1] = 'eternal' end
-    if card.ability.perishable then
-        loc_vars = loc_vars or {}; loc_vars.perish_tally=card.ability.perish_tally
-        badges[#badges + 1] = 'perishable'
-    end
-    if card.ability.rental then badges[#badges + 1] = 'rental' end
-    if card.pinned then badges[#badges + 1] = 'pinned_left' end
-
-    if card.sticker then
-        loc_vars = loc_vars or {}; loc_vars.sticker = card.sticker
-    end
-
-    return {
-        _c = card.config.center,
-        full_UI_table = nil,
-        specific_vars = loc_vars,
-        card_type = card_type,
-        badges = badges,
-        hide_desc = hide_desc,
-        main_start = main_start,
-        main_end = main_end
-    }
-
+    -- sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(t.nodes[1].nodes[1].nodes[1].nodes[3]))
+    -- t.nodes[1].nodes[1].nodes[1].nodes[3] = t.nodes[1].nodes[1].nodes[1].nodes[3] or {}
+    -- if card and card.ability and card.ability.rarity then
+        -- t.nodes[1].nodes[1].nodes[1].nodes[3][#t.nodes[1].nodes[1].nodes[1].nodes[3] + 1] = create_badge("TEST", G.C.BLUE, nil, 4)
+    -- end
+    -- local key = card.config.center.key
+    -- local center_obj = G.P_CENTERS[key]
+    -- if center_obj then
+    --     if not G.SETTINGS.no_mod_tracking then
+    --         local mod_name = SMODS.current_mod.name
+    --         local len = string.len(mod_name)
+    --         -- t.nodes[1].nodes[1].nodes[1].nodes[3][#t.nodes[1].nodes[1].nodes[1].nodes[3] + 1] = create_badge(mod_name, center_obj.badge_colour or G.C.UI.BACKGROUND_INACTIVE, nil,
+    --         --     len <= 6 and 0.9 or 0.9 - 0.02 * (len - 6))
+    --     end
+    -- end
+    -- t.nodes[1].nodes[1].nodes[1].nodes[3][#t.nodes[1].nodes[1].nodes[1].nodes[3] + 1] = create_badge("TEST", G.C.BLUE, nil, 4)
+    return t
 end
