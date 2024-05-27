@@ -34,6 +34,21 @@ local function FindJoker(cards)
     return -1
 end
 
+local function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else
+        copy = orig
+    end
+    return copy
+end
+
 local back_apply_to_run_ref = Back.apply_to_run
 function Back:apply_to_run()
     back_apply_to_run_ref(self)
@@ -74,10 +89,12 @@ function Back:apply_to_run()
                         front = G.P_CARDS["J_" .. v.key]
                     end
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                    local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
+                    local card = nil
+                    card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
                     if SMODS.current_mod.custom.joker_deck.jokers[v.key] and SMODS.current_mod.custom.joker_deck.jokers[v.key].ability then
                         for k, a in pairs(SMODS.current_mod.custom.joker_deck.jokers[v.key].ability) do
-                            card.ability[k] = a
+                            local tmp = deepcopy(a)
+                            card.ability[k] = tmp
                         end
                     else
                         card.ability = card.ability or {}

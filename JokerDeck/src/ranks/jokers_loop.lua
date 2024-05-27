@@ -484,6 +484,7 @@ SMODS.current_mod.custom.joker_deck.jokers["Space Joker"] =                 {pos
     joker_ability = {
         {
             scored = true,
+            before = true,
             ret = {
                 level_up = 1
             }
@@ -723,7 +724,38 @@ SMODS.current_mod.custom.joker_deck.jokers["Flash Card"] =                  {pos
 SMODS.current_mod.custom.joker_deck.jokers["Popcorn"] =                     {pos = {x = 1, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Ramen"] =                       {pos = {x = 2, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Seltzer"] =                     {pos = {x = 3, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
-SMODS.current_mod.custom.joker_deck.jokers["Spare Trousers"] =              {pos = {x = 4, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Spare Trousers"] =              {pos = {x = 4, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability_vars = {
+        mult = 0
+    },
+    joker_ability = {
+        [1] = {
+            scored = true,
+            conditions = {
+                contain_hand = "Two Pair"
+            },
+            ease_var = {
+                mult = 2
+            }
+        },
+        [2] = {
+            scored = true,
+            ret = {
+                mult = "mult"
+            }
+        },
+        [3] = {
+            held = true,
+            conditions = {
+                contain_hand = "Two Pair"
+            },
+            ease_var = {
+                mult = 2
+            }
+        }
+    }
+}}
+
 SMODS.current_mod.custom.joker_deck.jokers["Campfire"] =                    {pos = {x = 5, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Smiley Face"] =                 {pos = {x = 6, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Ancient Joker"] =               {pos = {x = 7, y = 15}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}

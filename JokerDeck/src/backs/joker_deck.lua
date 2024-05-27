@@ -20,32 +20,32 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"},
-            {key = "Space Joker"}
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"},
+            {key = "Spare Trousers"}
         }
     }
 }
@@ -300,12 +300,6 @@ local function play_ability(card, context, ability, ret)
         end
     end
 
-    -- if ability.upgrade_hand and type(ability.upgrade_hand) == "string" then
-    --     if ability.upgrade_hand == "played_hand" then
-
-    --     end
-    -- end
-
     if ability.ret and type(ability.ret == "table") then
         for k, v in pairs(ability.ret) do
             ret[k] = ret[k] or 0
@@ -340,51 +334,53 @@ end
 
 local evaluate_play_ref = G.FUNCS.evaluate_play
 function G.FUNCS:evaluate_play(e)
-    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
-    
-    G.GAME.hands[text].played = G.GAME.hands[text].played + 1
-    G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1
-    G.GAME.last_hand_played = text
-    set_hand_usage(text)
-    G.GAME.hands[text].visible = true
+    -- local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
 
-    --Add all the pure bonus cards to the scoring hand
-    local pures = {}
-    for i=1, #G.play.cards do
-        if next(find_joker('Splash')) then
-            scoring_hand[i] = G.play.cards[i]
-        else
-            if G.play.cards[i].ability.effect == 'Stone Card' then
-                local inside = false
-                for j=1, #scoring_hand do
-                    if scoring_hand[j] == G.play.cards[i] then
-                        inside = true
-                    end
-                end
-                if not inside then table.insert(pures, G.play.cards[i]) end
-            end
-        end
-    end
-    for i=1, #pures do
-        table.insert(scoring_hand, pures[i])
-    end
-    local percent = 0.3
-    local percent_delta = 0.08
+    -- G.GAME.hands[text].played = G.GAME.hands[text].played + 1
+    -- G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1
+    -- G.GAME.last_hand_played = text
+    -- set_hand_usage(text)
+    -- G.GAME.hands[text].visible = true
 
-    if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) and G.GAME.selected_back and G.GAME.selected_back.name == "Joker Deck" then
-        delay(0.4)
+    -- --Add all the pure bonus cards to the scoring hand
+    -- local pures = {}
+    -- for i=1, #G.play.cards do
+    --     if next(find_joker('Splash')) then
+    --         scoring_hand[i] = G.play.cards[i]
+    --     else
+    --         if G.play.cards[i].ability.effect == 'Stone Card' then
+    --             local inside = false
+    --             for j=1, #scoring_hand do
+    --                 if scoring_hand[j] == G.play.cards[i] then
+    --                     inside = true
+    --                 end
+    --             end
+    --             if not inside then table.insert(pures, G.play.cards[i]) end
+    --         end
+    --     end
+    -- end
+    -- for i=1, #pures do
+    --     table.insert(scoring_hand, pures[i])
+    -- end
+    -- local percent = 0.3
+    -- local percent_delta = 0.08
 
-        for i = 1, #scoring_hand do
-            local effects = eval_card(scoring_hand[i], {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before = true})
-            if effects.level_up then
-                -- card_eval_status_text(scoring_hand[i], 'jokers', nil, percent, nil, effects.jokers)
-                percent = percent + percent_delta
-                if effects.level_up then
-                    level_up_hand(scoring_hand[i], text, nil, effects.level_up)
-                end
-            end
-        end
-    end
+    -- if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) and G.GAME.selected_back and G.GAME.selected_back.name == "Joker Deck" then
+    --     delay(0.4)
+
+    --     for i = 1, #scoring_hand do
+    --         if scoring_hand[i] and scoring_hand[i].ability and scoring_hand[i].ability.joker_ability and scoring_hand[i].ability.joker_ability.before then
+    --             local effects = eval_card(scoring_hand[i], {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before = true})
+    --             if effects.level_up then
+    --                 -- card_eval_status_text(scoring_hand[i], 'jokers', nil, percent, nil, effects.jokers)
+    --                 percent = percent + percent_delta
+    --                 if effects.level_up then
+    --                     level_up_hand(scoring_hand[i], text, nil, effects.level_up)
+    --                 end
+    --             end
+    --         end
+    --     end
+    -- end
 
     evaluate_play_ref(self, e)
 end
@@ -396,23 +392,42 @@ function eval_card(card, context)
     if card.ability and card.ability.joker_ability then
         for _, ability in ipairs(card.ability.joker_ability) do
             if check_conditions(card, context, ability, ret) then
+
                 if not context.repetition then
-                    if context.full_hand and is_played(card, context.full_hand) ~= -1 then
-                        if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
-                            if ability.scored then
+                    if context.before then
+                        if context.full_hand and is_played(card, context.full_hand) ~= -1 then
+                            if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
+                                if ability.scored then
+                                    ret = play_ability(card, context, ability, ret)
+                                end
+                            end
+                            if ability.played then
+                                ret = play_ability(card, context, ability, ret)
+                            end
+                        else
+                            if ability.held then
                                 ret = play_ability(card, context, ability, ret)
                             end
                         end
-                        if ability.played then
-                            ret = play_ability(card, context, ability, ret)
-                        end
                     else
-                        if ability.held then
-                            ret = play_ability(card, context, ability, ret)
+                        if context.full_hand and is_played(card, context.full_hand) ~= -1 then
+                            if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
+                                if ability.scored then
+                                    ret = play_ability(card, context, ability, ret)
+                                end
+                            end
+                            if ability.played then
+                                ret = play_ability(card, context, ability, ret)
+                            end
+                        else
+                            if ability.held then
+                                ret = play_ability(card, context, ability, ret)
+                            end
                         end
                     end
                 else
                 end
+
             end
         end
     end
