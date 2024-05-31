@@ -208,7 +208,7 @@ function SMODS.current_mod.process_loc_text()
     })
     SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Yorick", {
         text = {
-            "gains {X:mult,C:white}X1{} when {C:spades}discarded{}",
+            "Gains {X:mult,C:white}X1{} when {C:spades}discarded{}",
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         }
     })
