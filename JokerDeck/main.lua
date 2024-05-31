@@ -8,16 +8,6 @@
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
-local supported_languages = {}
-supported_languages["en-us"] = true
-supported_languages["fr"] = true
-
-init_localization()
-NFS.load(SMODS.current_mod.path .. 'src/localization.lua')('en-us')
-if supported_languages[G.SETTINGS.language] then
-    NFS.load(SMODS.current_mod.path .. 'src/localization.lua')(G.SETTINGS.language)
-end
-
 NFS.load(SMODS.current_mod.path .. "src/atlases.lua")()
 NFS.load(SMODS.current_mod.path .. "src/ui.lua")()
 NFS.load(SMODS.current_mod.path .. "src/hands.lua")()
@@ -141,6 +131,8 @@ function Card:set_ability(center, initial, delay_sprites)
         if old_ability and old_ability.rarity then self.ability.rarity = old_ability.rarity end
         if old_ability and old_ability.joker_ability then self.ability.joker_ability = old_ability.joker_ability end
         if old_ability and old_ability.joker_ability_vars then self.ability.joker_ability_vars = old_ability.joker_ability_vars end
+        if old_ability and old_ability.loc_vars then self.ability.loc_vars = old_ability.loc_vars end
+        if old_ability and old_ability.loc_text_key then self.ability.loc_text_key = old_ability.loc_text_key end
     end
 end
 
@@ -180,6 +172,7 @@ SMODS.Suits.Spades.populate = function(self)
     self.disabled = nil
 end
 
+NFS.load(SMODS.current_mod.path .. 'src/localization.lua')()
 
 ----------------------------------------------
 ------------MOD CODE END----------------------

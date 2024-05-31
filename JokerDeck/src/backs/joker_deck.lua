@@ -20,32 +20,9 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"},
-            {key = "Seance"}
+            {key = "Joker"},
+            {key = "Joker"},
+            {key = "Joker"}
         }
     }
 }
@@ -115,6 +92,19 @@ end
 
 local function play_ability(card, context, ability, ret)
     if not ability or type(ability) ~= "table" then return ret end
+
+    if ability.perkeo and type(ability.perkeo) == "number" then
+        if G.consumeables.cards[1] then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local new_card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo')), nil)
+                    new_card:set_edition({negative = true}, true)
+                    new_card:add_to_deck()
+                    G.consumeables:emplace(new_card)
+                    return true
+                end}))
+        end
+    end
 
     if ability.create_tag and type(ability.create_tag) == "table" then
         for _, tag in ipairs(ability.create_tag) do

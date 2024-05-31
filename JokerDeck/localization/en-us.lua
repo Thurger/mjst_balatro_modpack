@@ -67,7 +67,7 @@
             },
             mjst_mult = {
                 text = {
-                    "{C:mult}+#1#{} mult"
+                    "{C:mult}+#1#{} Mult"
                 }
             },
             s_mjst_mod_balatro_plus_ranked_2 = {

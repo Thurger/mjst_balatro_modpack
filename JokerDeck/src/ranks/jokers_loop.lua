@@ -3,16 +3,28 @@ SMODS.current_mod.custom.joker_deck = SMODS.current_mod.custom.joker_deck or {}
 SMODS.current_mod.custom.joker_deck.jokers = SMODS.current_mod.custom.joker_deck.jokers or {}
 
 SMODS.current_mod.custom.joker_deck.jokers["Joker"] =                       {pos = {x = 0, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "mult"
+    },
+    loc_text_key = "joker_deck_jokers_Joker",
+    joker_ability_vars = {
+        mult = 4
+    },
     joker_ability = {
         {
             scored = true,
             ret = {
-                mult = 4
+                mult = "mult"
             }
         }
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Chaos the Clown"] =             {pos = {x = 1, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Chaos the Clown",
+    joker_ability_vars = {
+    },
     joker_ability = {
         {
             scored = true,
@@ -21,6 +33,11 @@ SMODS.current_mod.custom.joker_deck.jokers["Chaos the Clown"] =             {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Jolly Joker"] =                 {pos = {x = 2, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Jolly Joker",
+    joker_ability_vars = {
+    },
     joker_ability = {
         {
             scored = true,
@@ -43,6 +60,11 @@ SMODS.current_mod.custom.joker_deck.jokers["Jolly Joker"] =                 {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Zany Joker"] =                  {pos = {x = 3, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Zany Joker",
+    joker_ability_vars = {
+    },
     joker_ability = {
         {
             scored = true,
@@ -65,6 +87,11 @@ SMODS.current_mod.custom.joker_deck.jokers["Zany Joker"] =                  {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Mad Joker"] =                   {pos = {x = 4, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Mad Joker",
+    joker_ability_vars = {
+    },
     joker_ability = {
         {
             scored = true,
@@ -87,6 +114,11 @@ SMODS.current_mod.custom.joker_deck.jokers["Mad Joker"] =                   {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Crazy Joker"] =                 {pos = {x = 5, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Crazy Joker",
+    joker_ability_vars = {
+    },
     joker_ability = {
         {
             scored = true,
@@ -109,6 +141,11 @@ SMODS.current_mod.custom.joker_deck.jokers["Crazy Joker"] =                 {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Droll Joker"] =                 {pos = {x = 6, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Droll Joker",
+    joker_ability_vars = {
+    },
     joker_ability = {
         {
             scored = true,
@@ -131,6 +168,15 @@ SMODS.current_mod.custom.joker_deck.jokers["Droll Joker"] =                 {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Half Joker"] =                  {pos = {x = 7, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "size",
+        [2] = "mult"
+    },
+    loc_text_key = "joker_deck_jokers_Half Joker",
+    joker_ability_vars = {
+        size = 3,
+        mult = 20
+    },
     joker_ability = {
         {
             scored = true,
@@ -189,6 +235,15 @@ SMODS.current_mod.custom.joker_deck.jokers["Half Joker"] =                  {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Merry Andy"] =                  {pos = {x = 8, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "discards",
+        [2] = "hand_size"
+    },
+    loc_text_key = "joker_deck_jokers_Merry Andy",
+    joker_ability_vars = {
+        discards = 3,
+        hand_size = 1
+    },
     joker_ability = {
         {
             scored = true,
@@ -198,6 +253,13 @@ SMODS.current_mod.custom.joker_deck.jokers["Merry Andy"] =                  {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Stone Joker"] =                 {pos = {x = 9, y = 0}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "stone_joker"
+    },
+    loc_text_key = "joker_deck_jokers_Stone Joker",
+    joker_ability_vars = {
+        stone_joker = 25
+    },
     joker_ability = {
         {
             scored = true,
@@ -206,6 +268,13 @@ SMODS.current_mod.custom.joker_deck.jokers["Stone Joker"] =                 {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Juggler"] =                     {pos = {x = 0, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "hand_size"
+    },
+    loc_text_key = "joker_deck_jokers_Juggler",
+    joker_ability_vars = {
+        hand_size = 1
+    },
     joker_ability = {
         {
             scored = true,
@@ -214,6 +283,13 @@ SMODS.current_mod.custom.joker_deck.jokers["Juggler"] =                     {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Drunkard"] =                    {pos = {x = 1, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "discards"
+    },
+    loc_text_key = "joker_deck_jokers_Drunkard",
+    joker_ability_vars = {
+        discards = 1
+    },
     joker_ability = {
         {
             scored = true,
@@ -222,6 +298,13 @@ SMODS.current_mod.custom.joker_deck.jokers["Drunkard"] =                    {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Acrobat"] =                     {pos = {x = 2, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "x_mult"
+    },
+    loc_text_key = "joker_deck_jokers_Acrobat",
+    joker_ability_vars = {
+        x_mult = 3
+    },
     joker_ability = {
         {
             scored = true,
@@ -235,6 +318,11 @@ SMODS.current_mod.custom.joker_deck.jokers["Acrobat"] =                     {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Sock and Buskin"] =             {pos = {x = 3, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Sock and Buskin",
+    joker_ability_vars = {
+    },
     joker_ability = {--TODO
         {
             scored = true,
@@ -244,12 +332,21 @@ SMODS.current_mod.custom.joker_deck.jokers["Sock and Buskin"] =             {pos
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Mime"] =                        {pos = {x = 4, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Credit Card"] =                 {pos = {x = 5, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
-SMODS.current_mod.custom.joker_deck.jokers["Greddy Joker"] =                {pos = {x = 6, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Greedy Joker"] =                {pos = {x = 6, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Lusty Joker"] =                 {pos = {x = 7, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Wrathful Joker"] =              {pos = {x = 8, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Gluttonous Joker"] =            {pos = {x = 9, y = 1}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 
 SMODS.current_mod.custom.joker_deck.jokers["Troubadour"] =                  {pos = {x = 0, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "hand_size",
+        [2] = "hands"
+    },
+    loc_text_key = "joker_deck_jokers_Troubadour",
+    joker_ability_vars = {
+        hand_size = 2,
+        hands = -1
+    },
     joker_ability = {
         {
             scored = true,
@@ -259,6 +356,13 @@ SMODS.current_mod.custom.joker_deck.jokers["Troubadour"] =                  {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Banner"] =                      {pos = {x = 1, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "chips",
+    },
+    loc_text_key = "joker_deck_jokers_Banner",
+    joker_ability_vars = {
+        chips = 30,
+    },
     joker_ability = {
         {
             scored = true,
@@ -267,6 +371,15 @@ SMODS.current_mod.custom.joker_deck.jokers["Banner"] =                      {pos
     }
 }}
 SMODS.current_mod.custom.joker_deck.jokers["Mystic Summit"] =               {pos = {x = 2, y = 2}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "mult",
+        [2] = "remaining_discard"
+    },
+    loc_text_key = "joker_deck_jokers_Mystic Summit",
+    joker_ability_vars = {
+        mult = 15,
+        remaining_discard = 0
+    },
     joker_ability = {
         {
             scored = true,
@@ -477,9 +590,11 @@ SMODS.current_mod.custom.joker_deck.jokers["The Tribe"] =                   {pos
 }}
 
 SMODS.current_mod.custom.joker_deck.jokers["8 Ball"] =                      {pos = {x = 0, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
+-- On held: Classic Effect
+-- On Played: Every other 8 with 1 on 1 probability
 SMODS.current_mod.custom.joker_deck.jokers["Fibonacci"] =                   {pos = {x = 1, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Joker Stencil"] =               {pos = {x = 2, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
--- X Mult by missing card in hand (pair = X3)
+-- X Mult by missing card in hand not counting Stencil (pair = X4) 
 SMODS.current_mod.custom.joker_deck.jokers["Space Joker"] =                 {pos = {x = 3, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
     joker_ability = {
         {
@@ -586,9 +701,43 @@ SMODS.current_mod.custom.joker_deck.jokers["Bootstraps"] =                  {pos
 -- SMODS.current_mod.custom.joker_deck.jokers["Prime"] =                       {pos = {x = 2, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Caino"] =                       {pos = {x = 3, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true}}
 SMODS.current_mod.custom.joker_deck.jokers["Triboulet"] =                   {pos = {x = 4, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true}}
-SMODS.current_mod.custom.joker_deck.jokers["Yorick"] =                      {pos = {x = 5, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Yorick"] =                      {pos = {x = 5, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+        [1] = "x_mult"
+    },
+    loc_text_key = "joker_deck_jokers_Yorick",
+    joker_ability_vars = {
+        x_mult = 1
+    },
+    joker_ability = {
+        {
+            scored = true,
+            ret = {
+                x_mult = "x_mult"
+            }
+        },
+        {
+            discarded = true,
+            ease_var = {
+                x_mult = 1
+            }
+        }
+    }
+}}
 SMODS.current_mod.custom.joker_deck.jokers["Chicot"] =                      {pos = {x = 6, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true}}
-SMODS.current_mod.custom.joker_deck.jokers["Perkeo"] =                      {pos = {x = 7, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true}}
+SMODS.current_mod.custom.joker_deck.jokers["Perkeo"] =                      {pos = {x = 7, y = 9}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 3, all_ranks = true, all_suits = true, no_debuff = true,
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_Perkeo",
+    joker_ability_vars = {
+    },
+    joker_ability = {
+        {
+            scored = true,
+            perkeo = 1
+        }
+    }
+}}
 
 SMODS.current_mod.custom.joker_deck.jokers["Egg"] =                         {pos = {x = 0, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
     joker_ability_vars = {--TODO TEST IF ORDER IS ALWAYS RESPECTED

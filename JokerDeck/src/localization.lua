@@ -1,55 +1,215 @@
-local chosen_language = ...
+init_localization()
 
-local localization = NFS.load(SMODS.current_mod.path .. 'localization/' .. chosen_language .. '.lua')()
-
-if type(localization) == "table" then
-    for grps, _ in pairs(localization) do
-        if grps ~= nil and _ ~= nil then
-            for grp, __ in pairs(localization[grps]) do
-                if grp ~= nil and __ ~= nil then
-                    for item, data in pairs(localization[grps][grp]) do
-                        if G.localization[grps] == nil then
-                            G.localization[grps] = {}
-                        end
-                        if G.localization[grps][grp] == nil then
-                            G.localization[grps][grp] = {}
-                        end
-                        if G.localization[grps][grp][item] == nil then
-                            G.localization[grps][grp][item] = {}
-                        end
-                        G.localization[grps][grp][item] = data
-                    end
-                end
-            end
-        end
-    end
-end
-
-if localization and localization.descriptions and localization.descriptions.Joker then
-    for k, v in pairs(localization.descriptions.Joker) do
-        G.localization.descriptions['Joker'][k] = v
-    end
-end
-
-for g_k, group in pairs(G.localization) do
-    if g_k == 'descriptions' then
-        for _, set in pairs(group) do
-            for _, center in pairs(set) do
-                center.text_parsed = {}
-                for _, line in ipairs(center.text) do
-                    center.text_parsed[#center.text_parsed + 1] = loc_parse_string(line)
-                end
-                center.name_parsed = {}
-                for _, line in ipairs(type(center.name) == 'table' and center.name or { center.name }) do
-                    center.name_parsed[#center.name_parsed + 1] = loc_parse_string(line)
-                end
-                if center.unlock then
-                    center.unlock_parsed = {}
-                    for _, line in ipairs(center.unlock) do
-                        center.unlock_parsed[#center.unlock_parsed + 1] = loc_parse_string(line)
-                    end
-                end
-            end
-        end
-    end
+function SMODS.current_mod.process_loc_text()
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Joker", {
+        text = {
+            "{C:mult}+#1#{} Mult"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Chaos the Clown", {
+        text = {
+            "Create a {C:green}D6 tag{}",
+            "when {C:spades}scored{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Jolly Joker", {
+        text = {
+            "{C:mult}+8{} Mult",
+            "when {C:spades}scored{} or {C:spades}held in Hand{}",
+            "if played hand contains",
+            "a {C:attention}Pair{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Zany Joker", {
+        text = {
+            "{C:mult}+12{} Mult",
+            "when {C:spades}scored{} or {C:spades}held in hand{}",
+            "if played hand contains",
+            "a {C:attention}Three of Kind{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Mad Joker", {
+        text = {
+            "{C:mult}+10{} Mult",
+            "when {C:spades}scored{} or {C:spades}held in hand{}",
+            "if played hand contains",
+            "{C:attention}Two Pairs{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Crazy Joker", {
+        text = {
+            "{C:mult}+12{} Mult",
+            "when {C:spades}scored{} or {C:spades}held in hand{}",
+            "if played hand contains",
+            "a {C:attention}Straight{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Droll Joker", {
+        text = {
+            "{C:mult}+10{} Mult",
+            "when {C:spades}scored{} or {C:spades}held in hand{}",
+            "if played hand contains",
+            "a {C:attention}Flush{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Half Joker", {
+        text = {
+            "{C:mult}+#2#{} Mult",
+            "when {C:spades}scored{} or {C:spades}held in hand{}",
+            "if played hand contains",
+            "{C:attention}#1# cards{} or less"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Merry Andy", {
+        text = {
+            "Until end of round",
+            "{C:mult}+#1#{} Discards",
+            "{C:attention}-#2#{} hand size"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Stone Joker", {
+        text = {
+            "{C:chips}+#1#{} Chis for",
+            "each {C:attention}Stone Card{}",
+            "in your {C:attention}full deck{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Juggler", {
+        text = {
+            "Until end of round",
+            "{C:attention}+#1#{} hand size"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Drunkard", {
+        text = {
+            "Until end of round",
+            "{C:mult}+#1#{} discard"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Acrobat", {
+        text = {
+            "{X:mult,C:white}X#1#{} Mult on {C:attention}final{}",
+            "{C:attention}hand{} of round"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Sock and Buskin", {
+        text = {
+            "Retrigger all scoring",
+            "{C:attention}face{} card when",
+            "this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Troubadour", {
+        text = {
+            "Until end of round",
+            "{C:attention}+#1#{} hand size",
+            "{C:mult}#2#{} Hand"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Banner", {
+        text = {
+            "{C:chips}+#1#{} Chips for",
+            "each remaining",
+            "{C:attention}discard{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Mystic Summit", {
+        text = {
+            "{C:mult}+#1#{} Mult when",
+            "{C:attention}#2#{} discard remaining"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Marble Joker", {
+        text = {
+            "Adds one {C:attention}Stone{} card",
+            "to deck when {C:spades}scored{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Mime", {
+        text = {
+            "Retrigger all",
+            "card {C:attention}held in hand{}",
+            "when this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Credit Card", {
+        text = {
+            "+#1#$ of debt",
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Greedy Joker", {
+        text = {
+            "Scoring cards with",
+            "{C:diamonds}Diamond{} suit give",
+            "{C:mult}+#1#{} Mult",
+            "when this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Lusty Joker", {
+        text = {
+            "Scoring cards with",
+            "{C:hearts}Heart{} suit give",
+            "{C:mult}+#1#{} Mult",
+            "when this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Wrathful Joker", {
+        text = {
+            "Scoring cards with",
+            "{C:spades}Spade{} suit give",
+            "{C:mult}+#1#{} Mult",
+            "when this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Gluttonous Joker", {
+        text = {
+            "Scoring cards with",
+            "{C:clubs}Club{} suit give",
+            "{C:mult}+#1#{} Mult",
+            "when this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Loyalty Card", {
+        text = {
+            "{C:white,X:mult}X#1#{} Mult every",
+            "{C:attention}#2#{} times played",
+            "{C:inactive}#3# remaining{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Hack", {
+        text = {
+            "Retrigger every scoring",
+            "{C:attention}2{}, {C:attention}3{}, {C:attention}4{} and {C:attention}5{}",
+            "when this card is",
+            "{C:spades}scored{} or {C:spades}held in hand{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Steel Joker", {
+        text = {
+            "{X:mult,C:white}X#1#{} Mult for each",
+            "{C:attention}Steel Card{}",
+            "in your full deck",
+            "{C:inactive}(Currently {X:mult,C:white}#2#{C:inactive} Mult)"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Perkeo", {
+        text = {
+            "Create a {C:negative}Negative{} copy of",
+            "1 random {C:attention}consumable{}",
+            "card in your possession",
+            "when {C:spades}scored{}"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Yorick", {
+        text = {
+            "gains {X:mult,C:white}X1{} when {C:spades}discarded{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+        }
+    })
 end

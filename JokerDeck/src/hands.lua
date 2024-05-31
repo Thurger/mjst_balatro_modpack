@@ -19,7 +19,7 @@ function get_X_same(num, hand)
     end
 
     for i = #vals, 1, -1 do
-        if next(vals[i]) then table.insert(ret, vals[i]) end
+        if next(vals[i] or {}) then table.insert(ret, vals[i] or {}) end
     end
 
     return ret

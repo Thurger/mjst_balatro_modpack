@@ -2,8 +2,7 @@ local ref_generate_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
     local info_queue = {}
 
-    -- sendInfoMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(specific_vars))
-    if (_c.set == 'Default' or _c.set == 'Enhanced') and specific_vars and specific_vars.mult and specific_vars.mult > 0 then
+    if (_c.set == 'Default' or _c.set == 'Enhanced') and specific_vars and specific_vars.ability and specific_vars.ability.joker_ability then
         if not full_UI_table then
             full_UI_table = {
                 main = {},
@@ -16,8 +15,16 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
 
         local desc_nodes = (not full_UI_table.name and full_UI_table.main) or full_UI_table.info
         local result = ref_generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
-        if specific_vars.mult ~= nil then
-            localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {specific_vars.mult}}
+        if specific_vars.ability and specific_vars.ability.loc_vars and specific_vars.ability.loc_text_key then
+            local loc_vars = {}
+            for i, v in ipairs(specific_vars.ability.loc_vars) do
+                if specific_vars.ability.joker_ability_vars and type(v) == "string" then
+                    loc_vars[i] = specific_vars.ability.joker_ability_vars[v] or v
+                else
+                    loc_vars[i] = v
+                end
+            end
+            localize{type = 'other', key = specific_vars.ability.loc_text_key, nodes = desc_nodes, vars = loc_vars}
         end
 
         if not (_c.set == 'Edition') and badges then
