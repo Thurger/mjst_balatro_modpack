@@ -17,12 +17,52 @@ SMODS.Back {
     discovered = true,
     unlocked = true,
     config = {
+        consumables = {
+            "c_mjst_lib_mjst_lib_vanish",
+        },
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Joker"},
-            {key = "Joker"},
-            {key = "Joker"}
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"},
+            {key = "Greedy Joker"}
         }
     }
 }
@@ -87,10 +127,14 @@ local function check_conditions(card, context, ability, ret)
         if nb < ability.conditions.enhanced_card then return false end
     end
 
+    if ability.conditions.card_is_suit and type(ability.conditions.card_is_suit) == "string" and not card:is_suit(ability.conditions.card_is_suit) then
+        return false
+    end
+
     return true
 end
 
-local function play_ability(card, context, ability, ret)
+local function play_ability(card, context, ability, ret, other_card)
     if not ability or type(ability) ~= "table" then return ret end
 
     if ability.perkeo and type(ability.perkeo) == "number" then
@@ -367,14 +411,17 @@ end
 local function play_other_ability(card, context, ability, ret)
     if not ability or type(ability) ~= "table" then return ret end
 
+    -- sendInfoMessage("6")
     if ability.retrigger_scoring_face_card and type(ability.retrigger_scoring_face_card) == "number" then
-        if card:is_face() and is_scoring(card, context.scoring_hand) then
-            ret = ret or {}
-            ret.repetitions = ret.repetitions or 0
-            ret.repetitions = ret.repetitions + ability.retrigger_scoring_face_card + 1
-            ret.message = ret.message or localize("k_again_ex")
-            ret.card = card
-        end
+        -- sendInfoMessage("7")
+        -- if card:is_face() and is_scoring(card, context.scoring_hand) and context.repetition then
+        --     sendInfoMessage("8")
+        --     ret = ret or {}
+        --     ret.repetitions = ret.repetitions or 0
+        --     ret.repetitions = ret.repetitions + ability.retrigger_scoring_face_card
+        --     -- ret.message = ret.message or localize("k_again_ex")
+        --     -- ret.card = card
+        -- end
     end
 
     return ret
@@ -382,7 +429,9 @@ end
 
 local evaluate_play_ref = G.FUNCS.evaluate_play
 function G.FUNCS:evaluate_play(e)
-    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+    local text, disp_text, poker_hands, scoring_hand, non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+    local mult = mod_mult(G.GAME.hands[text].mult)
+    local hand_chips = mod_chips(G.GAME.hands[text].chips)
 
     G.GAME.hands[text].played = G.GAME.hands[text].played + 1
     G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1
@@ -420,10 +469,151 @@ function G.FUNCS:evaluate_play(e)
             if scoring_hand[i] and scoring_hand[i].ability and scoring_hand[i].ability.joker_ability and scoring_hand[i].ability.joker_ability.before then
                 local effects = eval_card(scoring_hand[i], {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before = true})
                 if effects.level_up then
-                    -- card_eval_status_text(scoring_hand[i], 'jokers', nil, percent, nil, effects.jokers)
                     percent = percent + percent_delta
                     if effects.level_up then
                         level_up_hand(scoring_hand[i], text, nil, effects.level_up)
+                    end
+                end
+            end
+        end
+
+        mult = mod_mult(G.GAME.hands[text].mult)
+        hand_chips = mod_chips(G.GAME.hands[text].chips)
+        local modded = false
+        mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips)
+        mult, hand_chips = mod_mult(mult), mod_chips(hand_chips)
+        if modded then update_hand_text({sound = 'chips2', modded = modded}, {chips = hand_chips, mult = mult}) end
+
+        if scoring_hand then
+            for _, card in ipairs(scoring_hand) do
+                if G.hand.cards then
+                    for __, other_card in ipairs(G.play.cards) do
+                        local effects = eval_card(card, {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, hand = true, hand_card = other_card})
+                        for ii = 1, #effects do
+                            --If chips added, do chip add event and add the chips to the total
+                            if effects[ii].chips then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                hand_chips = mod_chips(hand_chips + effects[ii].chips)
+                                update_hand_text({delay = 0}, {chips = hand_chips})
+                            end
+
+                            --If mult added, do mult add event and add the mult to the total
+                            if effects[ii].mult then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                mult = mod_mult(mult + effects[ii].mult)
+                                update_hand_text({delay = 0}, {mult = mult})
+                            end
+
+                            --If play dollars added, add dollars to total
+                            if effects[ii].p_dollars then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                ease_dollars(effects[ii].p_dollars)
+                            end
+
+                            --If dollars added, add dollars to total
+                            if effects[ii].dollars then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                ease_dollars(effects[ii].dollars)
+                            end
+
+                            --Any extra effects
+                            if effects[ii].extra then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                local extras = {mult = false, hand_chips = false}
+                                if effects[ii].extra.mult_mod then mult =mod_mult( mult + effects[ii].extra.mult_mod);extras.mult = true end
+                                if effects[ii].extra.chip_mod then hand_chips = mod_chips(hand_chips + effects[ii].extra.chip_mod);extras.hand_chips = true end
+                                if effects[ii].extra.swap then
+                                    local old_mult = mult
+                                    mult = mod_mult(hand_chips)
+                                    hand_chips = mod_chips(old_mult)
+                                    extras.hand_chips = true; extras.mult = true
+                                end
+                                if effects[ii].extra.func then effects[ii].extra.func() end
+                                update_hand_text({delay = 0}, {chips = extras.hand_chips and hand_chips, mult = extras.mult and mult})
+                            end
+
+                            --If x_mult added, do mult add event and mult the mult to the total
+                            if effects[ii].x_mult then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                mult = mod_mult(mult*effects[ii].x_mult)
+                                update_hand_text({delay = 0}, {mult = mult})
+                            end
+
+                            --calculate the card edition effects
+                            if effects[ii].edition then
+                                hand_chips = mod_chips(hand_chips + (effects[ii].edition.chip_mod or 0))
+                                mult = mult + (effects[ii].edition.mult_mod or 0)
+                                mult = mod_mult(mult*(effects[ii].edition.x_mult_mod or 1))
+                                update_hand_text({delay = 0}, {
+                                    chips = effects[ii].edition.chip_mod and hand_chips or nil,
+                                    mult = (effects[ii].edition.mult_mod or effects[ii].edition.x_mult_mod) and mult or nil,
+                                })
+                            end
+                        end
+                    end
+                    for __, other_card in ipairs(G.hand.cards) do
+                        local effects = eval_card(card, {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, hand = true, hand_card = other_card})
+                        for ii = 1, #effects do
+                            --If chips added, do chip add event and add the chips to the total
+                            if effects[ii].chips then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                hand_chips = mod_chips(hand_chips + effects[ii].chips)
+                                update_hand_text({delay = 0}, {chips = hand_chips})
+                            end
+
+                            --If mult added, do mult add event and add the mult to the total
+                            if effects[ii].mult then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                mult = mod_mult(mult + effects[ii].mult)
+                                update_hand_text({delay = 0}, {mult = mult})
+                            end
+
+                            --If play dollars added, add dollars to total
+                            if effects[ii].p_dollars then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                ease_dollars(effects[ii].p_dollars)
+                            end
+
+                            --If dollars added, add dollars to total
+                            if effects[ii].dollars then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                ease_dollars(effects[ii].dollars)
+                            end
+
+                            --Any extra effects
+                            if effects[ii].extra then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                local extras = {mult = false, hand_chips = false}
+                                if effects[ii].extra.mult_mod then mult =mod_mult( mult + effects[ii].extra.mult_mod);extras.mult = true end
+                                if effects[ii].extra.chip_mod then hand_chips = mod_chips(hand_chips + effects[ii].extra.chip_mod);extras.hand_chips = true end
+                                if effects[ii].extra.swap then
+                                    local old_mult = mult
+                                    mult = mod_mult(hand_chips)
+                                    hand_chips = mod_chips(old_mult)
+                                    extras.hand_chips = true; extras.mult = true
+                                end
+                                if effects[ii].extra.func then effects[ii].extra.func() end
+                                update_hand_text({delay = 0}, {chips = extras.hand_chips and hand_chips, mult = extras.mult and mult})
+                            end
+
+                            --If x_mult added, do mult add event and mult the mult to the total
+                            if effects[ii].x_mult then
+                                if effects[ii].card then juice_card(effects[ii].card) end
+                                mult = mod_mult(mult*effects[ii].x_mult)
+                                update_hand_text({delay = 0}, {mult = mult})
+                            end
+
+                            --calculate the card edition effects
+                            if effects[ii].edition then
+                                hand_chips = mod_chips(hand_chips + (effects[ii].edition.chip_mod or 0))
+                                mult = mult + (effects[ii].edition.mult_mod or 0)
+                                mult = mod_mult(mult*(effects[ii].edition.x_mult_mod or 1))
+                                update_hand_text({delay = 0}, {
+                                    chips = effects[ii].edition.chip_mod and hand_chips or nil,
+                                    mult = (effects[ii].edition.mult_mod or effects[ii].edition.x_mult_mod) and mult or nil,
+                                })
+                            end
+                        end
                     end
                 end
             end
@@ -437,58 +627,97 @@ local eval_card_ref = eval_card
 function eval_card(card, context)
     local ret = eval_card_ref(card, context)
 
+    -- if context.repetition then
+    --     -- sendInfoMessage("CARD:")
+    --     if card and card.ability and card.ability.joker_ability then
+    --         -- sendInfoMessage("Joker")
+    --     else
+    --         -- sendInfoMessage("Vanilla")
+    --     end
+    --     if context.other_card then
+    --         -- sendInfoMessage("OTHER:")
+    --         if context.other_card:is_face() then
+    --             -- sendInfoMessage("Face")
+    --             ret = ret or {}
+    --             ret.jokers = ret.jokers or {}
+    --             ret.jokers["repetitions"] = ret.jokers["repetitions"] or 0
+    --             ret.jokers["repetitions"] = ret.jokers["repetitions"] + 1
+    --         end
+    --     end
+    -- end
+
+    if context.hand then
+        if context.hand_card and context.hand_card.ability and context.hand_card.ability.joker_ability then
+            for _, ability in ipairs(context.hand_card.ability.joker_ability) do
+                if ability and ability.hand then
+                    if check_conditions(card, context, ability, ret) then
+                        ret = play_ability(context.hand_card, context, ability, ret, card)
+                    end
+                end
+            end
+        end
+    end
+
     if card.ability and card.ability.joker_ability then
         for _, ability in ipairs(card.ability.joker_ability) do
             if check_conditions(card, context, ability, ret) then
-
                 if not context.repetition then
                     if context.before then
                         if context.full_hand and is_played(card, context.full_hand) ~= -1 then
                             if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
                                 if ability.scored then
-                                    ret = play_ability(card, context, ability, ret)
+                                    ret = play_ability(card, context, ability, ret, nil)
                                 end
                             end
                             if ability.played then
-                                ret = play_ability(card, context, ability, ret)
+                                ret = play_ability(card, context, ability, ret, nil)
                             end
                         else
                             if ability.held then
-                                ret = play_ability(card, context, ability, ret)
+                                ret = play_ability(card, context, ability, ret, nil)
                             end
                         end
                     else
                         if context.full_hand and is_played(card, context.full_hand) ~= -1 then
                             if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
                                 if ability.scored then
-                                    ret = play_ability(card, context, ability, ret)
+                                    ret = play_ability(card, context, ability, ret, nil)
                                 end
                             end
                             if ability.played then
-                                ret = play_ability(card, context, ability, ret)
+                                ret = play_ability(card, context, ability, ret, nil)
                             end
                         else
                             if ability.held then
-                                ret = play_ability(card, context, ability, ret)
+                                ret = play_ability(card, context, ability, ret, nil)
                             end
                         end
                     end
                 else
                 end
-
             end
         end
     end
 
-    if context.scoring_hand and not context.repetition then
-        for _, v in ipairs(context.scoring_hand) do
-            if v.ability and v.ability.joker_ability then
-                for __, a in ipairs(v.ability.joker_ability) do
-                    ret = play_other_ability(card, context, a, ret)
-                end
-            end
-        end
-    end
+    -- if G and G.hand and G.hand.cards then
+    --     -- sendInfoMessage("0")
+    --     for idx, other in ipairs(G.hand.cards) do
+    --         -- sendInfoMessage("1")
+    --         if context.full_hand and is_played(card, context.full_hand) ~= -1 then
+    --             -- sendInfoMessage("2")
+    --             if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then
+    --                 -- sendInfoMessage("3")
+    --                 if other.ability and other.ability.joker_ability then
+    --                     -- sendInfoMessage("4")
+    --                     for _, ability in pairs(other.ability.joker_ability) do
+    --                         -- sendInfoMessage("5")
+    --                         ret = play_other_ability(card, context, ability, ret)
+    --                     end
+    --                 end
+    --             end
+    --         end
+    --     end
+    -- end
 
     if context.end_of_round and SMODS.current_mod.custom.joker_deck.save_hand_size_eor then
         G.hand:change_size(SMODS.current_mod.custom.joker_deck.save_hand_size_eor)

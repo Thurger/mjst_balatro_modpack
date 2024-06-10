@@ -212,4 +212,25 @@ function SMODS.current_mod.process_loc_text()
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         }
     })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Triboulet", {
+        text = {
+            "Played {C:attention}Kings{} and",
+            "{C:attention}Queens{} each give",
+            "{X:mult,C:white}X#1#{} Mult when scored"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Canio", {
+        text = {
+            "This Joker gains {X:mult,C:white}X#1#{} Mult",
+            "when a {C:attention}face{} card",
+            "is destroyed",
+            "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Chicot", {
+        text = {
+            "Disables effect of",
+            "every {C:attention}Boss Blind"
+        }
+    })
 end

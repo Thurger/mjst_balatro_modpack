@@ -4,9 +4,16 @@
 --- MOD_AUTHOR: [MJST]
 --- MOD_DESCRIPTION: Joker Deck
 --- BADGE_COLOUR: D4443C
+--- PREFIX: mjst_mod_joker_deck
+--- DEPENDENCIES: [mjst_lib>=1.0.0]
+--- VERSION: 0.0.1
+--- DISPLAY_NAME: Joker Deck
+--- PRIORITY: 0
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
+
+sendInfoMessage("[JokerDeck]: LOADING...")
 
 NFS.load(SMODS.current_mod.path .. "src/atlases.lua")()
 NFS.load(SMODS.current_mod.path .. "src/ui.lua")()
@@ -173,6 +180,8 @@ SMODS.Suits.Spades.populate = function(self)
 end
 
 NFS.load(SMODS.current_mod.path .. 'src/localization.lua')()
+
+sendInfoMessage("[JokerDeck]: LOADED!")
 
 ----------------------------------------------
 ------------MOD CODE END----------------------
