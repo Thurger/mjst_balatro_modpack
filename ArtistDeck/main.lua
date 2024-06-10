@@ -6,7 +6,7 @@
 --- BADGE_COLOUR: FFBD2B
 --- PREFIX: mjst_mod_artist_deck
 --- DEPENDENCIES: [mjst_lib>=1.0.0]
---- VERSION: 0.0.1
+--- VERSION: 0.0.2
 --- DISPLAY_NAME: Artist Deck
 --- PRIORITY: 0
 

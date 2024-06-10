@@ -1,4 +1,4 @@
-local NAME = "Decaying Deck"
+local NAME = "Official Deck"
 
 SMODS.Back {
     key = "Back" .. "_" .. SMODS.current_mod.id .. "_" .. NAME,

@@ -1,13 +1,13 @@
-local NAME = "Decaying Deck"
+local NAME = "Artist Deck"
 
 SMODS.Back {
     key = "Back" .. "_" .. SMODS.current_mod.id .. "_" .. NAME,
     name = NAME,
     loc_txt = {
-        name = "Artist Deck",
+        name = "Artist's Deck",
         text = {
-            "Flush are made with {C:attention}numbers{}",
-            "Hands are made with {C:mult}colors{}"
+            "{C:mult}Flush{} are made with {C:planet}numbers{}",
+            "{C:planet}Hands{} are made with {C:mult}colors{}"
         }
     },
     atlas = SMODS.current_mod.id .. "_backs",
