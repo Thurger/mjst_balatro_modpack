@@ -6,10 +6,10 @@ SMODS.Back {
     loc_txt = {
         name = "Decaying Deck",
         text = {
-            "After beating the Boss Blind",
-            "destroy all cards of",
-            "the highest rank in your",
-            "full deck"
+            "After defeating each",
+            "{C:attention}Boss Blind{}, all cards",
+            "of the {C:attention}highest{} rank",
+            "in your deck are {C:mult}destroyed{}"
         }
     },
     atlas = SMODS.current_mod.id .. "_backs",
