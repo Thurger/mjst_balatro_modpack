@@ -6,7 +6,7 @@
 --- BADGE_COLOUR: 555555
 --- PREFIX: mjst_mod_official_deck
 --- DEPENDENCIES: [mjst_lib>=1.0.0]
---- VERSION: 0.0.2
+--- VERSION: 0.0.3
 --- DISPLAY_NAME: Official Deck
 --- PRIORITY: 0
 
@@ -16,7 +16,7 @@
 sendInfoMessage("[OfficialDeck]: LOADING...")
 
 NFS.load(SMODS.current_mod.path .. "src/atlases.lua")()
-NFS.load(SMODS.current_mod.path .. "src/backs/decaying_deck.lua")()
+NFS.load(SMODS.current_mod.path .. "src/backs/official_deck.lua")()
 
 sendInfoMessage("[OfficialDeck]: LOADED!")
 
