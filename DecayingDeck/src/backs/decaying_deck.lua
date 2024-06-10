@@ -35,15 +35,17 @@ function Back:trigger_effect(args)
         for i = #G.playing_cards, 1, -1 do
             if G.playing_cards[i] and G.playing_cards[i].base and G.playing_cards[i].base.id and G.playing_cards[i].base.id == highest_rank then
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
+                    trigger = 'before',
                     delay = 0.2,
                     func = function()
-                        G.play:emplace(G.playing_cards[i], nil, false)
+                        -- G.play:emplace(G.playing_cards[i], nil, false)
+                        G.playing_cards[i]:remove()
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
                             delay = 0.2,
                             func = function()
-                                G.playing_cards[i]:start_dissolve()
+                                -- G.playing_cards[i]:start_dissolve()
+                                -- G.playing_cards[i]:remove()
                                 G.deck.config.card_limit = G.deck.config.card_limit - 1
                                 return true
                             end

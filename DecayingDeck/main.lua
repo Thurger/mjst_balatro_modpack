@@ -6,7 +6,7 @@
 --- BADGE_COLOUR: 327860
 --- PREFIX: mjst_mod_decaying_deck
 --- DEPENDENCIES: [mjst_lib>=1.0.0]
---- VERSION: 1.0.0
+--- VERSION: 1.0.1
 --- DISPLAY_NAME: Decaying Deck
 --- PRIORITY: 0
 
