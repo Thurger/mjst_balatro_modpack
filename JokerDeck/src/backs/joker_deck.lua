@@ -18,12 +18,38 @@ SMODS.Back {
     unlocked = true,
     config = {
         consumables = {
-            "c_mjst_lib_mjst_lib_vanish",
         },
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "DNA"}
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"},
+            {key = "Midas Mask"}
         }
     }
 }
@@ -97,6 +123,10 @@ local function check_conditions(card, context, ability, ret)
     end
 
     if ability.conditions.is_value and type(ability.conditions.is_value) == "table" and not card:is_value(ability.conditions.is_value) then
+        return false
+    end
+
+    if ability.conditions.is_face and not card:is_face() then
         return false
     end
 
@@ -387,7 +417,7 @@ local function play_ability(card, context, ability, ret, other_card)
         end
     end
 
-    if ability.ret and type(ability.ret == "table") then
+    if ability.ret and type(ability.ret) == "table" then
         for k, v in pairs(ability.ret) do
             ret[k] = ret[k] or 0
             if type(ret[k]) == "number" and type(v) == "number" then
@@ -412,6 +442,16 @@ local function play_other_ability(card, context, ret)
                 for _, ability in ipairs(other_card.ability.joker_ability) do
                     if ability.other then
                         if not ability.conditions or check_conditions(card, context, ability, ret) then
+                            if ability.enhance_card and type(ability.enhance_card) == "string" and G.P_CENTERS[ability.enhance_card] then
+                                card:set_ability(G.P_CENTERS[ability.enhance_card], nil, true)
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        card:juice_up()
+                                        return true
+                                    end
+                                }))
+                            end
+
                             if ability.ret and type(ability.ret == "table") then
                                 for k, v in pairs(ability.ret) do
                                     ret[k] = ret[k] or 0
@@ -424,6 +464,7 @@ local function play_other_ability(card, context, ret)
                                     end
                                 end
                             end
+
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     other_card:juice_up(0.3)
@@ -443,6 +484,16 @@ local function play_other_ability(card, context, ret)
                 for _, ability in ipairs(other_card.ability.joker_ability) do
                     if ability.other then
                         if not ability.conditions or check_conditions(card, context, ability, ret) then
+                            if ability.enhance_card and type(ability.enhance_card) == "string" and G.P_CENTERS[ability.enhance_card] then
+                                card:set_ability(G.P_CENTERS[ability.enhance_card], nil, true)
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        card:juice_up()
+                                        return true
+                                    end
+                                }))
+                            end
+
                             if ability.ret and type(ability.ret == "table") then
                                 for k, v in pairs(ability.ret) do
                                     ret[k] = ret[k] or 0
@@ -455,6 +506,7 @@ local function play_other_ability(card, context, ret)
                                     end
                                 end
                             end
+
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     other_card:juice_up(0.3)

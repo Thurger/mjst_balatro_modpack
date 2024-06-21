@@ -1025,7 +1025,19 @@ G.mjst_config.joker_deck.jokers["Cloud 9"] =                     {pos = {x = 7, 
 G.mjst_config.joker_deck.jokers["Rocket"] =                      {pos = {x = 8, y = 12}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Obelisk"] =                     {pos = {x = 9, y = 12}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 2, all_ranks = true, all_suits = true, no_debuff = true}}
 
-G.mjst_config.joker_deck.jokers["Midas Mask"] =                  {pos = {x = 0, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
+G.mjst_config.joker_deck.jokers["Midas Mask"] =                  {pos = {x = 0, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability_vars = {
+    },
+    joker_ability = {
+        {
+            other = true,
+            conditions = {
+                is_face = true
+            },
+            enhance_card = "m_gold"
+        }
+    }
+}}
 G.mjst_config.joker_deck.jokers["Luchador"] =                    {pos = {x = 1, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Photograph"] =                  {pos = {x = 2, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Gift Card"] =                   {pos = {x = 3, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
