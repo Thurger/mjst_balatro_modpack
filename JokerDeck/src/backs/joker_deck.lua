@@ -22,34 +22,9 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"},
-            {key = "Midas Mask"}
+            {key = "Walkie Talkie"},
+            {key = "Scholar"},
+            {key = "Smiley Face"}
         }
     }
 }
