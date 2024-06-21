@@ -23,7 +23,7 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Fibonacci"}
+            {key = "DNA"}
         }
     }
 }
@@ -258,6 +258,26 @@ local function play_ability(card, context, ability, ret, other_card)
         for k, v in pairs(ability.ease_var) do
             if card.ability.joker_ability_vars and card.ability.joker_ability_vars[k] and type(card.ability.joker_ability_vars[k]) == "number" and type(v) == "number" then
                 card.ability.joker_ability_vars[k] = card.ability.joker_ability_vars[k] + v
+            end
+        end
+    end
+
+    if ability.dna then
+        for _, other in ipairs(G.play.cards) do
+            if other ~= card then
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local _card = copy_card(other, nil, nil, G.playing_card)
+                _card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                table.insert(G.playing_cards, _card)
+                G.hand:emplace(_card)
+                _card.states.visible = nil
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        _card:start_materialize()
+                        return true
+                    end
+                }))
             end
         end
     end

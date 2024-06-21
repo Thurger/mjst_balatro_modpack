@@ -665,7 +665,28 @@ G.mjst_config.joker_deck.jokers["The Tribe"] =                   {pos = {x = 9, 
     }
 }}
 
-G.mjst_config.joker_deck.jokers["8 Ball"] =                      {pos = {x = 0, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
+G.mjst_config.joker_deck.jokers["8 Ball"] =                      {pos = {x = 0, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    -- TODO not working
+    loc_vars = {
+    },
+    loc_text_key = "joker_deck_jokers_8 Ball",
+    joker_ability_vars = {
+    },
+    joker_ability = {
+        {
+            other = true,
+            conditions = {
+                is_value = {8},
+                probability = 4
+            },
+            create_tarot_card = {
+                {
+                    value = "random"
+                }
+            },
+        }
+    }
+}}
 -- On held: Classic Effect
 -- On Played: Every other 8 with 1 on 1 probability
 G.mjst_config.joker_deck.jokers["Fibonacci"] =                   {pos = {x = 1, y = 5}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
@@ -941,7 +962,18 @@ G.mjst_config.joker_deck.jokers["Burglar"] =                     {pos = {x = 1, 
 G.mjst_config.joker_deck.jokers["Blackboard"] =                  {pos = {x = 2, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Runner"] =                      {pos = {x = 3, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Ice Cream"] =                   {pos = {x = 4, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
-G.mjst_config.joker_deck.jokers["DNA"] =                         {pos = {x = 5, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 2, all_ranks = true, all_suits = true, no_debuff = true}}
+G.mjst_config.joker_deck.jokers["DNA"] =                         {pos = {x = 5, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 2, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            conditions = {
+                contain_hand = "Pair",
+                hand_size = 2
+            },
+            scored = true,
+            dna = true
+        }
+    }
+}}
 G.mjst_config.joker_deck.jokers["Splash"] =                      {pos = {x = 6, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Blue Joker"] =                  {pos = {x = 7, y = 10}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
     joker_ability = {
