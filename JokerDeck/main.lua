@@ -50,12 +50,6 @@ local back_apply_to_run_ref = Back.apply_to_run
 function Back:apply_to_run()
     back_apply_to_run_ref(self)
 
-    if self.effect.config.jokers_price then
-    end
-
-    if self.effect.config.buffon_packs_price then
-    end
-
     if not self.effect.config.full_joker_suit then
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -82,15 +76,15 @@ function Back:apply_to_run()
                 delay = 0.1,
                 func = function()
                     local front = G.P_CARDS["J_" .. "Joker"]
-                    if SMODS.current_mod.custom.joker_deck.jokers[v.key] then
+                    if G.mjst_config and G.mjst_config.joker_deck and G.mjst_config.joker_deck.jokers and G.mjst_config.joker_deck.jokers[v.key] then
                         front = G.P_CARDS["J_" .. v.key]
                     end
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     local card = nil
                     card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.c_base, {playing_card = G.playing_card})
                     card.ability = card.ability or {}
-                    if SMODS.current_mod.custom.joker_deck.jokers[v.key] and SMODS.current_mod.custom.joker_deck.jokers[v.key].ability then
-                        for k, a in pairs(SMODS.current_mod.custom.joker_deck.jokers[v.key].ability) do
+                    if G.mjst_config.joker_deck.jokers[v.key] and G.mjst_config.joker_deck.jokers[v.key].ability then
+                        for k, a in pairs(G.mjst_config.joker_deck.jokers[v.key].ability) do
                             local tmp = deepcopy(a)
                             card.ability[k] = tmp
                         end
