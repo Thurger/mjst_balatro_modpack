@@ -22,9 +22,12 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Walkie Talkie"},
-            {key = "Scholar"},
-            {key = "Smiley Face"}
+            {key = "Odd Todd"},
+            {key = "Even Steven"},
+            {key = "Odd Todd"},
+            {key = "Even Steven"},
+            {key = "Odd Todd"},
+            {key = "Even Steven"},
         }
     }
 }
