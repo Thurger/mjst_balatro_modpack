@@ -522,7 +522,21 @@ G.mjst_config.joker_deck.jokers["Glass Joker"] =                 {pos = {x = 1, 
         }
     }
 }}
-G.mjst_config.joker_deck.jokers["Scary Face"] =                  {pos = {x = 2, y = 3}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
+G.mjst_config.joker_deck.jokers["Scary Face"] =                  {pos = {x = 2, y = 3}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability_vars = {
+    },
+    joker_ability = {
+        {
+            other = true,
+            conditions = {
+                is_face = true
+            },
+            ret = {
+                chips = 30,
+            }
+        }
+    }
+}}
 G.mjst_config.joker_deck.jokers["Abstract Joker"] =              {pos = {x = 3, y = 3}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
     joker_ability = {-- TODO MODIFY FOR EVERY JOKER ON SCREEN
         {
@@ -1137,11 +1151,116 @@ G.mjst_config.joker_deck.jokers["Mail-in Rebate"] =              {pos = {x = 7, 
 G.mjst_config.joker_deck.jokers["To the Moon"] =                 {pos = {x = 8, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Hallucination"] =               {pos = {x = 9, y = 13}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 
-G.mjst_config.joker_deck.jokers["Sly Joker"] =                   {pos = {x = 0, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
-G.mjst_config.joker_deck.jokers["Wily Joker"] =                  {pos = {x = 1, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
-G.mjst_config.joker_deck.jokers["Clever Joker"] =                {pos = {x = 2, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
-G.mjst_config.joker_deck.jokers["Devious Joker"] =               {pos = {x = 3, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
-G.mjst_config.joker_deck.jokers["Crafty Joker"] =                {pos = {x = 4, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
+G.mjst_config.joker_deck.jokers["Sly Joker"] =                   {pos = {x = 0, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            conditions = {
+                contain_hand = "Pair"
+            },
+            ret = {
+                chips = 50
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                contain_hand = "Pair"
+            },
+            ret = {
+                h_chips = 50
+            }
+        }
+    }
+}}
+G.mjst_config.joker_deck.jokers["Wily Joker"] =                  {pos = {x = 1, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            conditions = {
+                contain_hand = "Three of a Kind"
+            },
+            ret = {
+                chips = 100
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                contain_hand = "Three of a Kind"
+            },
+            ret = {
+                h_chips = 100
+            }
+        }
+    }
+}}
+G.mjst_config.joker_deck.jokers["Clever Joker"] =                {pos = {x = 2, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            conditions = {
+                contain_hand = "Two Pair"
+            },
+            ret = {
+                chips = 80
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                contain_hand = "Two Pair"
+            },
+            ret = {
+                h_chips = 80
+            }
+        }
+    }
+}}
+G.mjst_config.joker_deck.jokers["Devious Joker"] =               {pos = {x = 3, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            conditions = {
+                contain_hand = "Straight"
+            },
+            ret = {
+                chips = 100
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                contain_hand = "Straight"
+            },
+            ret = {
+                h_chips = 100
+            }
+        }
+    }
+}}
+G.mjst_config.joker_deck.jokers["Crafty Joker"] =                {pos = {x = 4, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability = {
+        {
+            scored = true,
+            conditions = {
+                contain_hand = "Flush"
+            },
+            ret = {
+                chips = 80
+            }
+        },
+        {
+            held = true,
+            conditions = {
+                contain_hand = "Flush"
+            },
+            ret = {
+                h_chips = 80
+            }
+        }
+    }
+}}
 G.mjst_config.joker_deck.jokers["Lucky Cat"] =                   {pos = {x = 5, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Baseball Card"] =               {pos = {x = 6, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 2, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Bull"] =                        {pos = {x = 7, y = 14}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true,
