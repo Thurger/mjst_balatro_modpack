@@ -592,7 +592,22 @@ G.mjst_config.joker_deck.jokers["Scholar"] =                     {pos = {x = 0, 
         }
     }
 }}
-G.mjst_config.joker_deck.jokers["Business Card"] =               {pos = {x = 1, y = 4}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
+G.mjst_config.joker_deck.jokers["Business Card"] =               {pos = {x = 1, y = 4}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true,
+    joker_ability_vars = {
+    },
+    joker_ability = {
+        {
+            other = true,
+            conditions = {
+                is_face = true,
+                probability = 2
+            },
+            ret = {
+                dollars = 2
+            }
+        }
+    }
+}}
 G.mjst_config.joker_deck.jokers["Supernova"] =                   {pos = {x = 2, y = 4}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 0, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Mr. Bones"] =                   {pos = {x = 3, y = 4}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
 G.mjst_config.joker_deck.jokers["Seing Double"] =                {pos = {x = 4, y = 4}, lc_atlas = SMODS.current_mod.id .. "joker_suit", hc_atlas = SMODS.current_mod.id .. "joker_suit", ability = {rarity = 1, all_ranks = true, all_suits = true, no_debuff = true}}
