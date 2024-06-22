@@ -22,7 +22,8 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Scary Face"}
+            {key = "Gros Michel"},
+            {key = "Cavendish"}
         }
     }
 }
@@ -500,8 +501,8 @@ local eval_card_ref = eval_card
 function eval_card(card, context)
     local ret = eval_card_ref(card, context)
     ret = ret or {}
-    ret["x_mult"] = 1
-    ret["h_x_mult"] = 1
+    ret["x_mult"] = 0
+    ret["h_x_mult"] = 0
 
     if card.ability and card.ability.joker_ability then
         for _, ability in ipairs(card.ability.joker_ability) do
@@ -558,10 +559,10 @@ function eval_card(card, context)
         G.mjst_config.save_hand_size_eor = 0
     end
 
-    if ret and ret["x_mult"] and ret["x_mult"] == 1 then
+    if ret and ret["x_mult"] and ret["x_mult"] <= 1 then
         ret["x_mult"] = nil
     end
-    if ret and ret["h_x_mult"] and ret["h_x_mult"] == 1 then
+    if ret and ret["h_x_mult"] and ret["h_x_mult"] <= 1 then
         ret["h_x_mult"] = nil
     end
     return ret
@@ -815,4 +816,65 @@ function G.FUNCS:evaluate_play(e)
     end
 
     evaluate_play_ref(self, e)
+
+    if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) and G.GAME.selected_back and G.GAME.selected_back.name == "Joker Deck" then
+
+        local cards_destroyed = {}
+        for i=1, #scoring_hand do
+            local destroyed = nil
+            --un-highlight all cards
+            highlight_card(scoring_hand[i], (i-0.999) / (#scoring_hand-0.998), 'down')
+
+            for j = 1, #G.jokers.cards do
+                destroyed = G.jokers.cards[j]:calculate_joker({destroying_card = scoring_hand[i], full_hand = G.play.cards})
+                if destroyed then break end
+            end
+
+            if scoring_hand[i].ability.joker_ability then
+                for _, v in ipairs(scoring_hand[i].ability.joker_ability) do
+                    if not v.conditions or check_conditions(scoring_hand[i], {}, v, {}) then
+                        if v.destroy and not scoring_hand[i].debuff then
+                            if scoring_hand[i].ability.key and scoring_hand[i].ability.key == "Gros Michel" then
+                                G.GAME.pool_flags.gros_michel_extinct = true
+                            end
+                            destroyed = true
+                        end
+                    end
+                end
+            end
+
+            if destroyed then
+                if scoring_hand[i].ability.name == 'Glass Card' then
+                    scoring_hand[i].shattered = true
+                else
+                    scoring_hand[i].destroyed = true
+                end
+                cards_destroyed[#cards_destroyed+1] = scoring_hand[i]
+            end
+        end
+
+        for j=1, #G.jokers.cards do
+            eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = cards_destroyed})
+        end
+
+        local glass_shattered = {}
+        for k, v in ipairs(cards_destroyed) do
+            if v.shattered then glass_shattered[#glass_shattered+1] = v end
+        end
+
+        check_for_unlock{type = 'shatter', shattered = glass_shattered}
+
+        for i=1, #cards_destroyed do
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if cards_destroyed[i].ability.name == 'Glass Card' then 
+                        cards_destroyed[i]:shatter()
+                    else
+                        cards_destroyed[i]:start_dissolve()
+                    end
+                return true
+                end
+            }))
+        end
+    end
 end
