@@ -22,8 +22,9 @@ SMODS.Back {
         jokers_price = {mult = 0.5},
         buffon_packs_price = {mult = 0.5},
         starting_jokers = {
-            {key = "Gros Michel"},
-            {key = "Cavendish"}
+            {key = "Ice Cream"},
+            {key = "Popcorn"},
+            {key = "Runner"},
         }
     }
 }
@@ -106,6 +107,22 @@ local function check_conditions(card, context, ability, ret)
 
     if ability.conditions.probability and type(ability.conditions.probability) == "number" and pseudorandom('probability') >= G.GAME.probabilities.normal / ability.conditions.probability then
         return false
+    end
+
+    if ability.conditions.var_compare and type(ability.conditions.var_compare) == "table" then
+        if ability.conditions.var_compare.method == "==" then
+            if card.ability.joker_ability_vars[ability.conditions.var_compare.v1] ~= card.ability.joker_ability_vars[ability.conditions.var_compare.v2] then
+                return false
+            end
+        elseif ability.conditions.var_compare.method == "~=" then
+            if card.ability.joker_ability_vars[ability.conditions.var_compare.v1] == card.ability.joker_ability_vars[ability.conditions.var_compare.v2] then
+                return false
+            end
+        elseif ability.conditions.var_compare.method == ">" then
+            if card.ability.joker_ability_vars[ability.conditions.var_compare.v1] <= card.ability.joker_ability_vars[ability.conditions.var_compare.v2] then
+                return false
+            end
+        end
     end
 
     return true
@@ -507,7 +524,8 @@ function eval_card(card, context)
     if card.ability and card.ability.joker_ability then
         for _, ability in ipairs(card.ability.joker_ability) do
             if check_conditions(card, context, ability, ret) then
-                if not context.repetition then
+                if not context.repetition and not context.discard and not context.pre_discard then
+                    -- sendDebugMessage(NFS.load(SMODS.current_mod.path .. "debug/dump.lua")(context))
                     if context.before then
                         if context.full_hand and is_played(card, context.full_hand) ~= -1 then
                             if context.scoring_hand and is_scoring(card, context.scoring_hand) ~= -1 then

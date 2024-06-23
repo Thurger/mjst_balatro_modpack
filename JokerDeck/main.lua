@@ -17,7 +17,6 @@ sendInfoMessage("[JokerDeck]: LOADING...")
 
 NFS.load(SMODS.current_mod.path .. "src/atlases.lua")()
 NFS.load(SMODS.current_mod.path .. "src/ui.lua")()
-NFS.load(SMODS.current_mod.path .. "src/hands.lua")()
 NFS.load(SMODS.current_mod.path .. "src/suits/joker_suit.lua")()
 NFS.load(SMODS.current_mod.path .. "src/ranks/jokers_loop.lua")()
 NFS.load(SMODS.current_mod.path .. "src/backs/joker_deck.lua")()
