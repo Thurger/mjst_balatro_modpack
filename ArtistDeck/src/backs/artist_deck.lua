@@ -4,7 +4,7 @@ SMODS.Back {
     key = "Back" .. "_" .. SMODS.current_mod.id .. "_" .. NAME,
     name = NAME,
     loc_txt = {
-        name = "Artist's Deck",
+        name = "COMING SOON",
         text = {
             "{C:mult}Flush{} are made with {C:planet}numbers{}",
             "{C:planet}Hands{} are made with {C:mult}colors{}"

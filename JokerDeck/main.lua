@@ -6,7 +6,7 @@
 --- BADGE_COLOUR: D4443C
 --- PREFIX: mjst_mod_joker_deck
 --- DEPENDENCIES: [mjst_lib>=1.0.0]
---- VERSION: 0.0.1
+--- VERSION: 0.0.2
 --- DISPLAY_NAME: Joker Deck
 --- PRIORITY: 0
 

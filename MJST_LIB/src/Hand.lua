@@ -63,16 +63,16 @@ function evaluate_poker_hand(hand)
     return ret
 end
 
-function get_straight(hand)
-    local ret = {}
-    local four_fingers = next(SMODS.find_card('j_four_fingers'))
-    local can_skip = next(SMODS.find_card('j_shortcut'))
-    if #hand < (5 - (four_fingers and 1 or 0)) then return ret end
-    local t = {}
-    local RANKS = {}
-    for i = #hand, 1, -1 do
-        RANKS[i] = hand[i]:get_ranks()
-    end
+-- function get_straight(hand)
+--     local ret = {}
+--     local four_fingers = next(SMODS.find_card('j_four_fingers'))
+--     local can_skip = next(SMODS.find_card('j_shortcut'))
+--     if #hand < (5 - (four_fingers and 1 or 0)) then return ret end
+--     local t = {}
+--     local RANKS = {}
+--     for i = #hand, 1, -1 do
+--         RANKS[i] = hand[i]:get_ranks()
+--     end
 
-    return ret
-end
+--     return ret
+-- end

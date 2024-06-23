@@ -4,7 +4,7 @@ SMODS.Back {
     key = "Back" .. "_" .. SMODS.current_mod.id .. "_" .. NAME,
     name = NAME,
     loc_txt = {
-        name = "Official Deck",
+        name = "COMING SOON",
         text = {
             "All {C:attention}cards{} may",
             "have up to {C:attention}3{} {C:tarot}seals{}.",

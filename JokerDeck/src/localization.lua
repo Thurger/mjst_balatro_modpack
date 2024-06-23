@@ -136,7 +136,8 @@ function SMODS.current_mod.process_loc_text()
     })
     SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Credit Card", {
         text = {
-            "+#1#$ of debt",
+            "{C:money}+#1#${} of debt allowed",
+            "until end of {C:attention}Game{}"
         }
     })
     SMODS.process_loc_text(G.localization.descriptions.Other, "joker_deck_jokers_Greedy Joker", {

@@ -6,7 +6,7 @@
 --- BADGE_COLOUR: 555555
 --- PREFIX: mjst_mod_official_deck
 --- DEPENDENCIES: [mjst_lib>=1.0.0]
---- VERSION: 0.0.3
+--- VERSION: 0.0.4
 --- DISPLAY_NAME: Official Deck
 --- PRIORITY: 0
 
