@@ -6,7 +6,7 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-    key = "icon",
+    key = "modicon",
     path = "icon.png",
     px = 32,
     py = 32
